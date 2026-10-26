@@ -62,13 +62,6 @@ p {
   margin-bottom: 10px;
 }
 
-/* Quick Overview Cards */
-.overview {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
-}
 
 /* Individual Overview Items */
 .overview p {

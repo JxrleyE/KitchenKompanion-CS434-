@@ -43,12 +43,6 @@ p {
   line-height: 1.7;
 }
 
-#kitchen_header {
-  color: #4F7A55;
-  font-size: 35px;
-  font-family: 'Josefin Sans', sans-serif;
-}
-
 /* Screen content */
 .tabcontent {
   display: none;

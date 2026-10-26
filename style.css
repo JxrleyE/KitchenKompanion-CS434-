@@ -1,63 +1,159 @@
+
+/* General Page Styling */
+body {
+  margin: 0;
+  background-color: #e8ede6;
+  font-family: 'Manrope', Arial, sans-serif;
+  color: #333;
+}
+
+/* Main App Container */
 .device {
-  margin:auto; 
+  margin: auto;
   width: 640px;
+  max-width: 100%;
   height: 960px;
+  max-height: 100vh;
   overflow: hidden;
   background-color: #F8F6F1;
   position: relative;
+  box-sizing: border-box;
 }
 
-#kitchen_header {
+/* Headings */
+h1 {
+  font-family: 'Josefin Sans', sans-serif;
   color: #4F7A55;
   font-size: 35px;
+  margin-bottom: 15px;
 }
 
+h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  color: #355C3B;
+  font-size: 26px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  color: #355C3B;
+  font-size: 20px;
+  margin-top: 35px;
+}
+
+/* Paragraphs */
+p {
+  color: #5B655C;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Home Screen */
+#Home {
+  padding: 45px 35px;
+}
+
+/* Welcome Section */
+#Home h2 {
+  background-color: #E3EDDF;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* Quick Overview Cards */
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Individual Overview Items */
+.overview p {
+  background-color: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #355C3B;
+  border-left: 5px solid #4F7A55;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover Effect */
+.overview p:hover {
+  background-color: #EFF5EC;
+}
+
+/* Tab Content */
+.tabcontent {
+  display: none;
+  padding: 35px;
+  text-align: left;
+  height: calc(100% - 85px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Bottom Navigation */
 .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  background-color: #4F7A55;
 }
 
-/* Scroll feature */
-.scroll {
-    height: 860px;
-    overflow: auto;
-    box-sizing: border-box;
-}
-
-.tablink:hover {
-  background-color: #777;
-}
-
-.tabicon {
-    width: 56px;
-    height: 54px;
-}
-
-/* Style the tab buttons */
+/* Navigation Buttons */
 .tablink {
-  background-color: #87ae73;
+  background-color: #4F7A55;
   color: white;
-  float: left;
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 17px;
-  width: 16.66%;
-  padding: 4px 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  font-size: 20px;
+  flex: 1;
+  padding: 22px 5px;
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+  transition: background-color 0.2s;
 }
 
-/* Set default styles for tab content */
-.tabcontent {
-  color: white;
-  display: none;
-  padding: 50px;
-  text-align: left;
+/* Navigation Hover */
+.tablink:hover {
+  background-color: #3B6041;
+}
+
+/* Navigation Icons */
+.tabicon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Smaller Screens */
+@media (max-width: 640px) {
+  .device {
+    width: 100%;
+    height: 100vh;
+  }
+
+  #Home {
+    padding: 30px 20px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .tablink {
+    font-size: 13px;
+    padding: 18px 4px;
+  }
 }

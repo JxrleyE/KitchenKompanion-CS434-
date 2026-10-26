@@ -1,0 +1,63 @@
+.device {
+  margin:auto; 
+  width: 640px;
+  height: 960px;
+  overflow: hidden;
+  background-color: #F8F6F1;
+  position: relative;
+}
+
+#kitchen_header {
+  color: #4F7A55;
+  font-size: 35px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* Scroll feature */
+.scroll {
+    height: 860px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+.tabicon {
+    width: 56px;
+    height: 54px;
+}
+
+/* Style the tab buttons */
+.tablink {
+  background-color: #87ae73;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 17px;
+  width: 16.66%;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 20px;
+}
+
+/* Set default styles for tab content */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 50px;
+  text-align: left;
+}

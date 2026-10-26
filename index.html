@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,53 +11,52 @@
 <body>
   <div class="device">
 
-    <!-- Home Screen -->
-    <div id="Home" class="tabcontent">
-      <h1>Kitchen Kompanion</h1>
-      <h2>Welcome to Your Kitchen!</h2>
-
-      <p>
-        Keep track of your groceries, organize your
-        kitchen, and find recipes all in one place.
-      </p>
-
-      </div>
-
-    <!-- Kitchen Tab -->
-    <div id="Kitchen" class="tabcontent">
+    <!-- Kitchen Screen -->
+    <div id="Kitchen" class="tabcontent scroll">
+      <h1 id="kitchen_header">Kitchen Kompanion</h1>
       <h2>My Kitchen</h2>
       <p>View and manage your food inventory.</p>
     </div>
 
-    <!-- Shopping List Tab -->
-    <div id="Shopping" class="tabcontent">
+    <!-- Shopping Screen -->
+    <div id="Shopping" class="tabcontent scroll">
       <h2>Shopping List</h2>
       <p>Keep track of groceries you need to buy.</p>
     </div>
 
-    <!-- Recipes Tab -->
-    <div id="Recipes" class="tabcontent">
+    <!-- Recipes Screen -->
+    <div id="Recipes" class="tabcontent scroll">
       <h2>Recipes</h2>
       <p>Find recipes using ingredients you have.</p>
     </div>
 
     <!-- Bottom Navigation -->
     <div class="footer">
-      <button class="tablink" onclick="openCity('Home')">
-        Home
-      </button>
 
-      <button class="tablink" onclick="openCity('Kitchen')">
+      <button
+        class="tablink active"
+        onclick="openCity('Kitchen')"
+        id="defaultOpen"
+      >
+        <img src="icons/fridge-active.svg" class="tabicon" alt="">
         Kitchen
       </button>
 
-      <button class="tablink" onclick="openCity('Shopping')">
+      <button
+        class="tablink"
+        onclick="openCity('Shopping')"
+      >
+        <img src="icons/cart-inactive.svg" class="tabicon" alt="">
         Shopping
       </button>
 
-      <button class="tablink" onclick="openCity('Recipes')">
+      <button
+        class="tablink"
+        onclick="openCity('Recipes')"
+      >
         Recipes
       </button>
+
     </div>
 
   </div>

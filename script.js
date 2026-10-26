@@ -21,10 +21,22 @@ const buttons = document.querySelectorAll(".tablink")
     buttons[i].addEventListener("click", function() {
 
       console.log("Clicked: ", buttons[i].innerText)
-      const currActive = document.querySelector(".tablink.active") //get the button thats curr active
 
-      currActive.classList.remove("active"); //were removing the 'active' word from the class
+      // Get the button thats curr active
+      const currActive = document.querySelector(".tablink.active"); 
 
-      buttons[i].classList.add("active") // swapping to new active button
+      // Make it inactive so that text changes
+      currActive.classList.remove("active"); 
+
+      // Change its icon to inactive
+      currIcon = currActive.querySelector("img");
+      currIcon.src = currIcon.src.replace("-active.svg", "-inactive.svg")
+
+      // Swapping to new active button
+      buttons[i].classList.add("active");
+
+      // changing new icon to active 
+      newIcon = buttons[i].querySelector("img");
+      newIcon.src = newIcon.src.replace("-inactive.svg", "-active.svg")
     });
  }

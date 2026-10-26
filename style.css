@@ -95,3 +95,54 @@ p {
   width: 56px;
   height: 54px;
 }
+
+.storage-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.storage-buttons button {
+  flex: 1;
+  background-color: #E3EDDF;
+  color: #355C3B;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.storage-buttons button:hover,
+.storage-buttons button.active {
+  background-color: #4F7A55;
+  color: white;
+}
+
+
+.food-card {
+  background-color: white;
+  padding: 18px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border-left: 5px solid #4F7A55;
+}
+
+.food-card h4 {
+  color: #355C3B;
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.food-card p {
+  color: #5B655C;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+
+#locationTitle {
+  color: #355C3B;
+  font-size: 20px;
+  margin-top: 25px;
+}

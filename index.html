@@ -1,34 +1,73 @@
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main Page</title>
-    <script src="script.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="device">
-      <div id="Text" class="tabcontent scroll">
-        <h1 id="Kitchen_header"> Kitchen Kompanion </h1>
-        Enough 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen Kompanion</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="device">
+
+    <!-- Home Screen -->
+    <div id="Home" class="tabcontent">
+      <h1>Kitchen Kompanion</h1>
+      <h2>Welcome to Your Kitchen!</h2>
+
+      <p>
+        Keep track of your groceries, organize your
+        kitchen, and find recipes all in one place.
+      </p>
+
+      <h3>Quick Overview</h3>
+
+      <div class="overview">
+        <p>Kitchen Inventory</p>
+        <p>Shopping List</p>
+        <p>Recipes</p>
       </div>
-    </body>
+    </div>
 
-    <!-- Footer Logic -->
-     <div class="footer">
-        <button class="tablink" onclick="openCity('Text')" id="defaultOpen">
-          <img src="icons/text.png" class="tabicon" />
-          Text
-        </button>
+    <!-- Kitchen Tab -->
+    <div id="Kitchen" class="tabcontent">
+      <h2>My Kitchen</h2>
+      <p>View and manage your food inventory.</p>
+    </div>
 
-        <button class="tablink" onclick="openCity('LR')">
-          <img src="icons/LR.png" class="tabicon" />
-          LR
-        </button>
+    <!-- Shopping List Tab -->
+    <div id="Shopping" class="tabcontent">
+      <h2>Shopping List</h2>
+      <p>Keep track of groceries you need to buy.</p>
+    </div>
 
-        <button class="tablink" onclick="openCity('Colors')">
-          <img src="icons/colors.png" class="tabicon" />
-          Colors
-        </button>
+    <!-- Recipes Tab -->
+    <div id="Recipes" class="tabcontent">
+      <h2>Recipes</h2>
+      <p>Find recipes using ingredients you have.</p>
+    </div>
 
-      </div>
+    <!-- Bottom Navigation -->
+    <div class="footer">
+      <button class="tablink" onclick="openCity('Home')">
+        Home
+      </button>
+
+      <button class="tablink" onclick="openCity('Kitchen')">
+        Kitchen
+      </button>
+
+      <button class="tablink" onclick="openCity('Shopping')">
+        Shopping
+      </button>
+
+      <button class="tablink" onclick="openCity('Recipes')">
+        Recipes
+      </button>
+    </div>
+
+  </div>
+</body>
+</html>

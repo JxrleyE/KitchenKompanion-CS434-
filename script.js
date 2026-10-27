@@ -158,3 +158,51 @@ function displayItems() {
 
 // Show Fridge inventory when the page loads
 changeLocation("Fridge");
+
+// -----------------------------------
+// SHOPPING TAB FEATURES
+// -----------------------------------
+
+const shoppingItems = ["Apples", "Milk", "Pasta"];
+
+const shoppingForm = document.getElementById("shoppingForm");
+const shoppingInput = document.getElementById("shoppingInput");
+const shoppingList = document.getElementById("shoppingList");
+
+function displayShoppingItems() {
+  shoppingList.innerHTML = "";
+
+  shoppingItems.forEach((item, index) => {
+    const listItem = document.createElement("li");
+    const checkbox = document.createElement("input");
+    const label = document.createElement("label");
+    const removeButton = document.createElement("button");
+
+    checkbox.type = "checkbox";
+    label.textContent = item;
+
+    removeButton.type = "button";
+    removeButton.textContent = "Remove";
+    removeButton.addEventListener("click", () => {
+      shoppingItems.splice(index, 1);
+      displayShoppingItems();
+    });
+
+    listItem.append(checkbox, label, removeButton);
+    shoppingList.appendChild(listItem);
+  });
+}
+
+shoppingForm.addEventListener("submit", event => {
+  event.preventDefault();
+
+  const item = shoppingInput.value.trim();
+  if (!item) return;
+
+  shoppingItems.push(item);
+  shoppingInput.value = "";
+  displayShoppingItems();
+});
+
+displayShoppingItems();
+

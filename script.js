@@ -25,11 +25,19 @@ for (let i = 0; i < buttons.length; i++) {
 
     const currActive = document.querySelector(".tablink.active");
 
-    if (currActive) {
-      currActive.classList.remove("active");
-    }
+    // Make it inactive so that text changes
+      currActive.classList.remove("active"); 
 
-    buttons[i].classList.add("active");
+      // Change its icon to inactive
+      currIcon = currActive.querySelector("img");
+      currIcon.src = currIcon.src.replace("-active.svg", "-inactive.svg")
+
+      // Swapping to new active button
+      buttons[i].classList.add("active");
+
+      // changing new icon to active 
+      newIcon = buttons[i].querySelector("img");
+      newIcon.src = newIcon.src.replace("-inactive.svg", "-active.svg")
   });
 }
 

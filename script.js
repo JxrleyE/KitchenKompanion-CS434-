@@ -15,6 +15,7 @@ function openCity(tab) {
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
 
+
 // Logic to handle color changes in NAV bar when switching tabs
 const buttons = document.querySelectorAll(".tablink");
 
@@ -40,6 +41,13 @@ for (let i = 0; i < buttons.length; i++) {
       newIcon.src = newIcon.src.replace("-inactive.svg", "-active.svg")
   });
 }
+
+//Logic to handle when user searches for an item
+const searchBar = document.getElementById("search_bar")
+
+searchBar.addEventListener("input", function() {
+    displayItems()
+})
 
 
 // -----------------------------------
@@ -130,13 +138,15 @@ function displayItems() {
   // Clear previous items
   list.innerHTML = "";
 
+  let user_search = searchBar.value.toLowerCase()
+
   // Loop through inventory
   for (let i = 0; i < inventory.length; i++) {
 
     let item = inventory[i];
 
     // Only show items in selected location
-    if (item.location === currentLocation) {
+    if (item.location === currentLocation && item.name.toLowerCase().includes(user_search)) {
 
       let card = document.createElement("div");
       card.className = "food-card";

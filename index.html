@@ -39,8 +39,52 @@
 
     <!-- Recipes Screen -->
     <div id="Recipes" class="tabcontent scroll">
-      <h2>Recipes</h2>
-      <p>Find recipes using ingredients you have.</p>
+
+      <div id="recipeList">
+
+        <h2>Recipes</h2>
+        <p>Find recipes using ingredients you already have.</p>
+
+        <input
+          type="text"
+          id="recipeSearch"
+          placeholder="Search recipes..."
+          onkeyup="searchRecipes()"
+        >
+
+        <h3>Recommended for You</h3>
+
+        <div class="recipe-card" onclick="showRecipe('alfredo')">
+          <div>
+            <h4>Alfredo Pasta</h4>
+            <p>30 min • 6 ingredients</p>
+            <span class="almost-ready">You have 4 of 6 ingredients</span>
+          </div>
+          <span class="recipe-arrow">›</span>
+        </div>
+
+        <div class="recipe-card" onclick="showRecipe('omelet')">
+          <div>
+            <h4>Cheese Omelet</h4>
+            <p>15 min • 5 ingredients</p>
+            <span class="ready">✓ You have everything</span>
+          </div>
+          <span class="recipe-arrow">›</span>
+        </div>
+        <!-- onclick not implemented yet  -->
+        <div class="recipe-card" onclick="showRecipe('tacos')">
+          <div>
+            <h4>Chicken Tacos</h4>
+            <p>25 min • 7 ingredients</p>
+            <span class="almost-ready">You have 2 of 7 ingredients</span>
+          </div>
+          <span class="recipe-arrow">›</span>
+        </div>
+
+      </div>
+
+      <div id="recipeDetails" style="display:none;"></div>
+
     </div>
 
     <!-- Bottom Navigation -->

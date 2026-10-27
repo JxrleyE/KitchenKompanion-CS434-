@@ -147,3 +147,117 @@ p {
   font-size: 20px;
   margin-top: 25px;
 }
+
+#recipeSearch {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  margin: 10px 0 20px;
+  border: 1px solid #D5DDD2;
+  border-radius: 10px;
+  background-color: white;
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+}
+
+#recipeSearch:focus {
+  outline: 2px solid #4F7A55;
+}
+
+.recipe-card {
+  background-color: white;
+  padding: 18px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.recipe-card:hover {
+  background-color: #F1F5EF;
+}
+
+.recipe-card h4 {
+  color: #355C3B;
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+
+.recipe-card p {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+
+.recipe-arrow {
+  color: #4F7A55;
+  font-size: 32px;
+}
+
+.ready {
+  color: #4F7A55;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.almost-ready {
+  color: #8A7045;
+  font-size: 14px;
+}
+
+.back-button {
+  border: none;
+  background: none;
+  color: #4F7A55;
+  font-family: 'Manrope', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.ingredient-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ingredient-list li {
+  background-color: white;
+  margin-bottom: 8px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.have-ingredient {
+  color: #355C3B;
+}
+
+.missing-ingredient {
+  color: #9A4F45;
+}
+
+.shopping-button {
+  width: 100%;
+  background-color: #4F7A55;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  margin: 15px 0;
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+}
+
+.shopping-button:hover {
+  background-color: #355C3B;
+}
+
+.success-message {
+  background-color: #E3EDDF;
+  color: #355C3B;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 10px 0;
+}

@@ -83,12 +83,13 @@ p {
   justify-content: center;
   gap: 4px;
   padding: 4px 6px;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Manrope', sans-serif;
 }
 
 .tablink.active {
   color: #4F7A55;
+  font-weight: bold;
 }
 
 .tabicon {

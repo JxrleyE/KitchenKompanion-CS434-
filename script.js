@@ -140,6 +140,8 @@ function displayItems() {
 
   let user_search = searchBar.value.toLowerCase()
 
+  let count = 0
+
   // Loop through inventory
   for (let i = 0; i < inventory.length; i++) {
 
@@ -147,6 +149,7 @@ function displayItems() {
 
     // Only show items in selected location
     if (item.location === currentLocation && item.name.toLowerCase().includes(user_search)) {
+      count++
 
       let card = document.createElement("div");
       card.className = "food-card";
@@ -170,6 +173,10 @@ function displayItems() {
 
       list.appendChild(card);
     }
+  }
+
+  if (count == 0) {
+    list.innerHTML = "No matching items found"
   }
 }
 

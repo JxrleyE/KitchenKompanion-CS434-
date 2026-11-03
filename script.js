@@ -154,24 +154,34 @@ function displayItems() {
       let card = document.createElement("div");
       card.className = "food-card";
 
+      let info = document.createElement("div");
+      info.className = "food_info";
+
+      let nameRow = document.createElement("div");
+      nameRow.className = "food_name_row";
+
       let name = document.createElement("h4");
       name.textContent = item.name;
 
-      let quantity = document.createElement("p");
-      quantity.textContent = "Quantity: " + item.quantity;
+      let owner = document.createElement("span");
+      owner.className = "tag " + item.owner.toLowerCase();
+      owner.textContent = item.owner;
 
       let expiration = document.createElement("p");
       expiration.textContent = "Expires: " + item.expiration;
 
-      let owner = document.createElement("p");
-      owner.textContent = "Tag: " + item.owner;
+      let quantity = document.createElement("p");
+      quantity.className = "food_quantity";
+      quantity.textContent = "Qty: " + item.quantity;
 
-      card.appendChild(name);
+      nameRow.appendChild(name);
+      nameRow.appendChild(owner);
+
+      info.appendChild(nameRow);
+      info.appendChild(expiration);
+
+      card.appendChild(info);
       card.appendChild(quantity);
-      card.appendChild(expiration);
-      card.appendChild(owner);
-
-      list.appendChild(card);
     }
   }
 

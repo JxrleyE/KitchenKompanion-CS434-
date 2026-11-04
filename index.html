@@ -14,7 +14,7 @@
     <!-- Kitchen Screen -->
     <div id="Kitchen" class="tabcontent scroll">
 
-      <!-- NEW: header area stays pinned while the item list scrolls -->
+      <!-- NEW: header stays pinned while the item list scrolls -->
       <div class="sticky-top">
         <h1 id="kitchen_header">Kitchen Kompanion</h1>
 
@@ -25,14 +25,6 @@
         </div>
 
         <input type="text" id="search_bar" placeholder="Search items">
-
-        <!-- NEW: quick filters -->
-        <div class="filter-chips">
-          <button class="chip active" onclick="setFilter('All')">All</button>
-          <button class="chip" onclick="setFilter('Expiring')">Expiring soon</button>
-          <button class="chip" onclick="setFilter('Mine')">Mine</button>
-          <button class="chip" onclick="setFilter('Shared')">Shared</button>
-        </div>
       </div>
 
       <!-- NEW: dimmed background behind the add/edit form -->
@@ -43,14 +35,7 @@
         <label for="new_name">Item name</label>
         <input type="text" id="new_name" required>
         <label for="new_quantity">Quantity</label>
-        <input type="number" id="new_quantity" min="1" value="1" required>
-        <!-- NEW: location can be changed when adding or editing -->
-        <label for="new_location">Location</label>
-        <select id="new_location">
-          <option>Fridge</option>
-          <option>Pantry</option>
-          <option>Freezer</option>
-        </select>
+        <input type="number" id="new_quantity" min="0" value="1" required>
         <label for="new_expiration">Expiration date</label>
         <input type="date" id="new_expiration">
         <label for="new_owner">Tag</label>
@@ -64,13 +49,7 @@
         <button type="button" id="delete_item" onclick="deleteEditingItem()">Remove item</button>
       </form>
 
-      <div class="list-header">
-        <h3 id="locationTitle">Fridge Items</h3>
-        <span id="itemCount"></span>
-      </div>
-
-      <!-- NEW: "found in another location" message for search -->
-      <div id="otherLocation"></div>
+      <h3 id="locationTitle">Fridge Items</h3>
 
       <div id="inventoryList"></div>
 
@@ -83,28 +62,21 @@
     <div id="Shopping" class="tabcontent scroll">
 
       <div class="sticky-top">
-        <div class="title-row">
-          <h2>Shopping List</h2>
-          <!-- NEW: share the list as text -->
-          <button type="button" class="link-button" onclick="copyShoppingList()">Copy list</button>
-        </div>
+        <h2>Shopping List</h2>
         <p id="shoppingSummary">Plan your next grocery trip.</p>
 
         <form id="shoppingForm">
           <input id="shoppingInput" type="text" placeholder="Add an item" required>
-          <!-- NEW: quantity, store section and who it's for -->
+          <!-- NEW: quantity, store section, owner and note -->
           <input id="shoppingQty" type="number" min="1" value="1" aria-label="Quantity">
           <button type="submit">Add</button>
           <div class="shopping-options">
             <select id="shoppingCategory" aria-label="Store section">
-              <option>Auto section</option>
               <option>Produce</option>
               <option>Dairy &amp; Eggs</option>
-              <option>Meat &amp; Seafood</option>
-              <option>Bakery</option>
+              <option>Meat</option>
               <option>Pantry</option>
               <option>Frozen</option>
-              <option>Household</option>
               <option>Other</option>
             </select>
             <select id="shoppingOwner" aria-label="Who it's for">
@@ -116,13 +88,10 @@
         </form>
       </div>
 
-      <!-- NEW: suggestions pulled from the kitchen inventory and recipes -->
-      <div id="shoppingSuggestions"></div>
-
       <ul id="shoppingList"></ul>
 
-      <!-- NEW: checked-off items, ready to put away into the kitchen -->
-      <div id="cartSection"></div>
+      <!-- NEW: move bought items into the kitchen inventory -->
+      <button id="putAwayButton" class="shopping-button" onclick="putAwayItems()">Move checked items to kitchen</button>
     </div>
 
 
@@ -138,17 +107,9 @@
           <input
             type="text"
             id="recipeSearch"
-            placeholder="Search recipes or ingredients..."
+            placeholder="Search recipes..."
             onkeyup="searchRecipes()"
           >
-
-          <!-- NEW: recipe filters -->
-          <div class="filter-chips">
-            <button class="chip recipe-chip active" onclick="setRecipeFilter('All')">All</button>
-            <button class="chip recipe-chip" onclick="setRecipeFilter('Ready')">Ready to cook</button>
-            <button class="chip recipe-chip" onclick="setRecipeFilter('Almost')">Missing 1–2</button>
-            <button class="chip recipe-chip" onclick="setRecipeFilter('Quick')">Under 20 min</button>
-          </div>
         </div>
 
         <h3>Recommended for You</h3>
@@ -180,18 +141,10 @@
           <span class="recipe-arrow">›</span>
         </div>
 
-        <p id="noRecipes" style="display:none;">No recipes match your search.</p>
-
       </div>
 
       <div id="recipeDetails" style="display:none;"></div>
 
-    </div>
-
-    <!-- NEW: short confirmation message with an optional Undo -->
-    <div id="toast">
-      <span id="toastText"></span>
-      <button type="button" id="toastAction"></button>
     </div>
 
     <!-- Bottom Navigation -->
@@ -211,8 +164,6 @@
 
         <img src="icons/cart-inactive.svg" class="tabicon" alt="">
         Shopping
-        <!-- NEW: number of items still to buy -->
-        <span id="shoppingBadge"></span>
       </button>
 
       <button

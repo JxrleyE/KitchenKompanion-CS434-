@@ -111,32 +111,50 @@
 
         <h3>Recommended for You</h3>
 
-        <div class="recipe-card" onclick="showRecipe('alfredo')">
-          <div>
-            <h4>Alfredo Pasta</h4>
-            <p>30 min • 6 ingredients</p>
-            <span class="almost-ready">You have 4 of 6 ingredients</span>
-          </div>
-          <span class="recipe-arrow">›</span>
-        </div>
+      <div class="recipe-card"
+     onclick="showRecipe('alfredo')"
+     role="button"
+     tabindex="0"
+     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); showRecipe('alfredo'); }">
+  <div>
+    <h4>Alfredo Pasta</h4>
+    <p>30 min • 6 ingredients</p>
+    <span class="almost-ready">
+      You have 4 of 6 ingredients
+    </span>
+    <span class="view-recipe">View Recipe →</span>
+  </div>
+</div>
 
-        <div class="recipe-card" onclick="showRecipe('omelet')">
-          <div>
-            <h4>Cheese Omelet</h4>
-            <p>15 min • 5 ingredients</p>
-            <span class="ready">✓ You have everything</span>
-          </div>
-          <span class="recipe-arrow">›</span>
-        </div>
+<div class="recipe-card"
+     onclick="showRecipe('omelet')"
+     role="button"
+     tabindex="0"
+     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); showRecipe('omelet'); }">
+  <div>
+    <h4>Cheese Omelet</h4>
+    <p>15 min • 5 ingredients</p>
+    <span class="ready">
+      ✓ You have everything
+    </span>
+    <span class="view-recipe">View Recipe →</span>
+  </div>
+</div>
 
-        <div class="recipe-card" onclick="showRecipe('tacos')">
-          <div>
-            <h4>Chicken Tacos</h4>
-            <p>25 min • 7 ingredients</p>
-            <span class="almost-ready">You have 2 of 7 ingredients</span>
-          </div>
-          <span class="recipe-arrow">›</span>
-        </div>
+<div class="recipe-card"
+     onclick="showRecipe('tacos')"
+     role="button"
+     tabindex="0"
+     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); showRecipe('tacos'); }">
+  <div>
+    <h4>Chicken Tacos</h4>
+    <p>25 min • 7 ingredients</p>
+    <span class="almost-ready">
+      You have 2 of 7 ingredients
+    </span>
+    <span class="view-recipe">View Recipe →</span>
+  </div>
+</div>
 
       </div>
 

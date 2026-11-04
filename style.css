@@ -256,7 +256,7 @@ p {
   border-radius: 8px;
   font-family: 'Manrope', sans-serif;
   font-size: 18px;           
-
+}
 #add_item select {
   width: 100%;
   box-sizing: border-box;
@@ -363,20 +363,44 @@ p {
   outline: 2px solid #4F7A55;
 }
 
-.recipe-card {
+.recipe-card 
+{
   background-color: white;
-  padding: 16px 18px;
-  margin-bottom: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
   border-radius: 12px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   cursor: pointer;
-  border: 1px solid #E1E6DE;
+
+  border: 2px solid #B9CBB3;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s;
 }
 
-.recipe-card:hover {
+.recipe-card:hover 
+{
   background-color: #F1F5EF;
+  border-color: #4F7A55;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.recipe-card:focus-visible {
+  outline: 3px solid #4F7A55;
+  outline-offset: 3px;
+}
+
+.view-recipe {
+  display: block;
+  color: #4F7A55;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 .recipe-card h4 {

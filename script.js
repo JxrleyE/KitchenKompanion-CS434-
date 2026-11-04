@@ -49,65 +49,30 @@ searchBar.addEventListener("input", function() {
     displayItems()
 })
 
-
-// -----------------------------------
-// KITCHEN TAB FEATURES
-// -----------------------------------
-
 // Sample inventory items
 let inventory = [
-  {
-    name: "Milk",
-    quantity: 2,
-    location: "Fridge",
-    expiration: "2026-10-29",
-    owner: "Shared"
-  },
-  {
-    name: "Eggs",
-    quantity: 12,
-    location: "Fridge",
-    expiration: "2026-11-02",
-    owner: "Mine"
-  },
-  {
-    name: "Cheese",
-    quantity: 1,
-    location: "Fridge",
-    expiration: "2026-11-10",
-    owner: "Shared"
-  },
-  {
-    name: "Rice",
-    quantity: 2,
-    location: "Pantry",
-    expiration: "2027-02-15",
-    owner: "Shared"
-  },
-  {
-    name: "Pasta",
-    quantity: 3,
-    location: "Pantry",
-    expiration: "2027-03-20",
-    owner: "Mine"
-  },
-  {
-    name: "Frozen Peas",
-    quantity: 2,
-    location: "Freezer",
-    expiration: "2027-01-10",
-    owner: "Shared"
-  }
+  { name: "Milk", quantity: 2, location: "Fridge", expiration: "2026-10-29", owner: "Shared" },
+  { name: "Eggs", quantity: 12, location: "Fridge", expiration: "2026-11-02", owner: "Mine" },
+  { name: "Cheese", quantity: 1, location: "Fridge", expiration: "2026-11-10", owner: "Shared" },
+  { name: "Rice", quantity: 2, location: "Pantry", expiration: "2027-02-15", owner: "Shared" },
+  { name: "Pasta", quantity: 3, location: "Pantry", expiration: "2027-03-20", owner: "Mine" },
+  { name: "Frozen Peas", quantity: 2, location: "Freezer", expiration: "2027-01-10", owner: "Shared" }
 ];
 
-// Default storage location
+
+
+// KITCHEN TAB FEATURES //
+
+// Default storage 
 let currentLocation = "Fridge";
 
 
-// Task 1: Switch between storage locations
+// Switch storage logic
 function changeLocation(location) {
 
   currentLocation = location;
+
+  hideForm();
 
   // Update section heading
   document.getElementById("locationTitle").textContent =
@@ -130,7 +95,7 @@ function changeLocation(location) {
 }
 
 
-// Task 2: Display food inventory
+// Display food inventory
 function displayItems() {
 
   let list = document.getElementById("inventoryList");
@@ -182,6 +147,7 @@ function displayItems() {
 
       card.appendChild(info);
       card.appendChild(quantity);
+      list.appendChild(card);
     }
   }
 
@@ -190,6 +156,41 @@ function displayItems() {
   }
 }
 
+
+//Add item logic
+const addItem = document.getElementById("add_item");
+
+function showForm() {
+  document.getElementById("add_title").textContent =
+    "Add to " + currentLocation;
+
+  addItem.style.display = "block";
+  document.getElementById("Kitchen").scrollTop = 0;
+}
+
+function hideForm() {
+  addItem.style.display = "none";
+  addItem.reset();
+}
+
+addItem.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  let name = document.getElementById("new_name").value.trim();
+  if (name == "") return;
+
+  inventory.push({
+    name: name,
+    quantity: Number(document.getElementById("new_quantity").value),
+    location: currentLocation,
+    expiration: document.getElementById("new_expiration").value,
+    owner: document.getElementById("new_owner").value
+  });
+
+  searchBar.value = "";
+  hideForm();
+  displayItems();
+});
 
 // Show Fridge inventory when the page loads
 changeLocation("Fridge");

@@ -10,7 +10,7 @@ function openCity(tab) {
   // Show the specific tab content
   document.getElementById(tab).style.display = "block";
 
-  // NEW: refresh recipe cards so they reflect inventory changes
+//Update the recipies
   if (tab === "Recipes") updateRecipeCards();
 }
 
@@ -18,7 +18,6 @@ function openCity(tab) {
 document.getElementById("defaultOpen").click();
 
 
-// Logic to handle color changes in NAV bar when switching tabs
 const buttons = document.querySelectorAll(".tablink");
 
 for (let i = 0; i < buttons.length; i++) {
@@ -28,31 +27,23 @@ for (let i = 0; i < buttons.length; i++) {
 
     const currActive = document.querySelector(".tablink.active");
 
-    // Make it inactive so that text changes
       currActive.classList.remove("active");
 
-      // Change its icon to inactive
       currIcon = currActive.querySelector("img");
       currIcon.src = currIcon.src.replace("-active.svg", "-inactive.svg")
 
-      // Swapping to new active button
       buttons[i].classList.add("active");
 
-      // changing new icon to active
       newIcon = buttons[i].querySelector("img");
       newIcon.src = newIcon.src.replace("-inactive.svg", "-active.svg")
   });
 }
-
-//Logic to handle when user searches for an item
 const searchBar = document.getElementById("search_bar")
 
 searchBar.addEventListener("input", function() {
     displayItems()
 })
 
-// Sample inventory items
-// UPDATED: a few more items so the list and recipes feel realistic
 let inventory = [
   { name: "Milk", quantity: 2, location: "Fridge", expiration: "2026-10-29", owner: "Shared" },
   { name: "Eggs", quantity: 12, location: "Fridge", expiration: "2026-11-02", owner: "Mine" },
@@ -68,29 +59,19 @@ let inventory = [
   { name: "Frozen Peas", quantity: 2, location: "Freezer", expiration: "2027-01-10", owner: "Shared" }
 ];
 
-
-
-// KITCHEN TAB FEATURES //
-
-// Default storage
 let currentLocation = "Fridge";
 
-// NEW: the item being edited (null = adding a new one)
 let editingItem = null;
 
-
-// Switch storage logic
 function changeLocation(location) {
 
   currentLocation = location;
 
   hideForm();
 
-  // Update section heading
   document.getElementById("locationTitle").textContent =
     location + " Items";
 
-  // Highlight selected storage button
   let storageButtons = document.querySelectorAll(
     ".storage-buttons button"
   );
@@ -106,8 +87,6 @@ function changeLocation(location) {
   displayItems();
 }
 
-
-// NEW: readable expiration text and warning level
 function expirationText(item) {
   if (!item.expiration) return { text: "No expiration date", status: "" };
   let today = new Date();
@@ -120,17 +99,11 @@ function expirationText(item) {
   return { text: "Expires: " + item.expiration, status: "" };
 }
 
-
-// Display food inventory
 function displayItems() {
 
   let list = document.getElementById("inventoryList");
-
-  // Clear previous items
   list.innerHTML = "";
-
   let user_search = searchBar.value.toLowerCase()
-
   let count = 0
 
   // Loop through inventory
@@ -138,19 +111,18 @@ function displayItems() {
 
     let item = inventory[i];
 
-    // Only show items in selected location
     if (item.location === currentLocation && item.name.toLowerCase().includes(user_search)) {
       count++
 
       let exp = expirationText(item);
 
       let card = document.createElement("div");
-      card.className = "food-card " + exp.status;   // UPDATED: colored edge when expiring
+      card.className = "food-card " + exp.status;  
       if (item.quantity === 0) card.classList.add("out-of-stock");
 
       let info = document.createElement("div");
       info.className = "food_info";
-      info.addEventListener("click", function() { showForm(item); });   // NEW: tap to edit
+      info.addEventListener("click", function() { showForm(item); });  
 
       let nameRow = document.createElement("div");
       nameRow.className = "food_name_row";
@@ -163,13 +135,13 @@ function displayItems() {
       owner.textContent = item.owner;
 
       let expiration = document.createElement("p");
-      expiration.textContent = item.quantity === 0 ? "Out of stock" : exp.text;   // UPDATED
+      expiration.textContent = item.quantity === 0 ? "Out of stock" : exp.text;   
       if (exp.status === "expired") expiration.className = "exp-expired";
       if (exp.status === "expiring-soon") expiration.className = "exp-soon";
 
       let quantity = document.createElement("p");
       quantity.className = "food_quantity";
-      quantity.textContent = item.quantity;   // UPDATED: shown between - and + buttons
+      quantity.textContent = item.quantity;   
 
       nameRow.appendChild(name);
       nameRow.appendChild(owner);
@@ -178,7 +150,6 @@ function displayItems() {
       info.appendChild(expiration);
       card.appendChild(info);
 
-      // NEW: out of stock -> one tap to add it to the shopping list
       if (item.quantity === 0) {
         let addToList = document.createElement("button");
         addToList.className = "small-button";
@@ -190,8 +161,6 @@ function displayItems() {
         });
         card.appendChild(addToList);
       }
-
-      // NEW: quick quantity update without opening a form
       let controls = document.createElement("div");
       controls.className = "qty-controls";
 
@@ -224,9 +193,6 @@ function displayItems() {
     list.innerHTML = "<p class='empty-message'>No matching items found</p>"
   }
 }
-
-
-//Add item logic
 const addItem = document.getElementById("add_item");
 
 // UPDATED: same form is used to add a new item or edit an existing one
@@ -276,7 +242,7 @@ addItem.addEventListener("submit", function(event) {
 
   if (editingItem) {
     details.location = editingItem.location;
-    Object.assign(editingItem, details);   // NEW: save edits
+    Object.assign(editingItem, details);  
   } else {
     inventory.push(details);
   }
@@ -286,21 +252,17 @@ addItem.addEventListener("submit", function(event) {
   displayItems();
 });
 
-// NEW: remove an item from the edit form
 function deleteEditingItem() {
   inventory.splice(inventory.indexOf(editingItem), 1);
   hideForm();
   displayItems();
 }
-
-// Show Fridge inventory when the page loads
 changeLocation("Fridge");
 
 // -----------------------------------
 // SHOPPING TAB FEATURES
 // -----------------------------------
 
-// UPDATED: items now have quantity, store section, owner and a note
 let shoppingItems = [
   { name: "Apples", quantity: 6, category: "Produce", owner: "Mine", note: "Honeycrisp", checked: false },
   { name: "Milk", quantity: 1, category: "Dairy & Eggs", owner: "Shared", note: "2%", checked: false },
@@ -309,13 +271,11 @@ let shoppingItems = [
 
 const categories = ["Produce", "Dairy & Eggs", "Meat", "Pantry", "Frozen", "Other"];
 
-// NEW: where each store section goes when you get home
 const categoryToLocation = {
   "Produce": "Fridge", "Dairy & Eggs": "Fridge", "Meat": "Fridge",
   "Pantry": "Pantry", "Frozen": "Freezer", "Other": "Pantry"
 };
 
-// NEW: pick a section for items added from the kitchen or recipes
 function guessCategory(location) {
   if (location === "Freezer") return "Frozen";
   if (location === "Pantry") return "Pantry";
@@ -327,7 +287,6 @@ const shoppingForm = document.getElementById("shoppingForm");
 const shoppingInput = document.getElementById("shoppingInput");
 const shoppingList = document.getElementById("shoppingList");
 
-// NEW: add an item, or raise the quantity if it's already on the list
 function addShoppingItem(name, quantity, category, owner, note) {
   let existing = shoppingItems.find(item => item.name.toLowerCase() === name.toLowerCase() && !item.checked);
   if (existing) {
@@ -346,7 +305,6 @@ function displayShoppingItems() {
   document.getElementById("shoppingSummary").textContent =
     left + (left === 1 ? " item" : " items") + " to buy" + (checked ? " · " + checked + " checked" : "");
 
-  // NEW: group items by store section
   categories.forEach(category => {
     let group = shoppingItems.filter(item => item.category === category);
     if (group.length === 0) return;
@@ -376,7 +334,6 @@ function displayShoppingItems() {
       label.textContent = item.name;
       label.htmlFor = checkbox.id;
 
-      // NEW: owner tag + note under the name
       const text = document.createElement("div");
       text.className = "item-text";
       const details = document.createElement("div");
@@ -409,8 +366,6 @@ function displayShoppingItems() {
 
   document.getElementById("putAwayButton").style.display = checked ? "block" : "none";
 }
-
-// NEW: checked items get added to the kitchen inventory
 function putAwayItems() {
   shoppingItems.filter(item => item.checked).forEach(item => {
     let location = categoryToLocation[item.category];
@@ -431,8 +386,6 @@ shoppingForm.addEventListener("submit", event => {
 
   const item = shoppingInput.value.trim();
   if (!item) return;
-
-  // UPDATED: also saves quantity, section, owner and note
   addShoppingItem(
     item,
     Math.max(1, Number(document.getElementById("shoppingQty").value) || 1),
@@ -447,12 +400,6 @@ shoppingForm.addEventListener("submit", event => {
 });
 
 displayShoppingItems();
-
-
-// -----------------------------------
-// NEW: RECIPES TAB FEATURES
-// (showRecipe and searchRecipes are called from the HTML)
-// -----------------------------------
 
 const recipes = {
   alfredo: {
@@ -483,7 +430,6 @@ function getMissingIngredients(key) {
   return recipes[key].ingredients.filter(name => !findInventoryItem(name));
 }
 
-// "You have X of Y" now comes from the real inventory
 function updateRecipeCards() {
   document.querySelectorAll("#recipeList .recipe-card").forEach(card => {
     let key = card.getAttribute("onclick").match(/'(.+)'/)[1];

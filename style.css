@@ -213,7 +213,7 @@ p {
 #locationTitle {
   color: #355C3B;
   font-size: 20px;
-  margin: 0;                  /* UPDATED */
+  margin: 16px 0 10px;        /* UPDATED: was 25px top */
 }
 
 /* add button */
@@ -488,8 +488,8 @@ p {
 
 
 /* =====================================================
-   NEW: pinned header so search, filters and location
-   buttons stay visible while only the list scrolls
+   NEW: pinned header so the title, location buttons and
+   search stay visible while only the list scrolls
    ===================================================== */
 .sticky-top {
   position: sticky;
@@ -502,47 +502,14 @@ p {
 }
 .sticky-top p { margin: 0; }
 
-.list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin: 14px 0 8px;
-}
-#itemCount {
-  font-size: 16px;
-  color: #4A544B;
-}
-
-/* NEW: filter chips */
-.filter-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-.chip {
-  background: white;
-  color: #355C3B;
-  border: 2px solid #B9CBB3;
-  border-radius: 20px;
-  padding: 7px 14px;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: 'Manrope', sans-serif;
-  cursor: pointer;
-}
-.chip.active {
-  background: #E3EDDF;
-  border-color: #4F7A55;
-}
-
 /* NEW: expiration warnings on food cards */
 .food-card.expiring-soon { border-left-color: #C98A1B; }
 .food-card.expired { border-left-color: #C0574B; }
 .exp-soon { color: #6E4A00 !important; }
 .exp-expired { color: #8E2A21 !important; }
+.food-card.out-of-stock { opacity: 0.75; }
 
-/* NEW: quantity +/- controls (quick inventory updates) */
+/* NEW: quantity +/- buttons (quick inventory updates) */
 .qty-controls {
   display: flex;
   align-items: center;
@@ -561,27 +528,12 @@ p {
   font-weight: 700;
   cursor: pointer;
 }
-.qty-controls button:hover { background: #D3E3CD; }
 .qty-controls .food_quantity {
   min-width: 48px;
   text-align: center;
   margin: 0;
 }
 
-/* NEW: search found the item in a different location */
-.location-hint {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  background: #D6E6F2;
-  color: #2F4F69;
-  font-size: 17px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  margin-bottom: 8px;
-}
-.location-hint button,
 .small-button {
   background: white;
   color: #355C3B;
@@ -602,7 +554,7 @@ p {
   padding: 24px 0;
 }
 
-/* NEW: form backdrop + delete button */
+/* NEW: form backdrop + remove button */
 #form_backdrop {
   display: none;
   position: absolute;
@@ -619,56 +571,9 @@ p {
   border: 2px solid #C0574B;
 }
 
-/* NEW: toast message with Undo */
-#toast {
-  display: none;
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 112px;
-  z-index: 60;
-  background: #2B3A2E;
-  color: white;
-  font-size: 17px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-}
-#toastAction {
-  background: #E3EDDF;
-  color: #26452B;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-  cursor: pointer;
-}
-
 /* =====================================================
-   NEW: detailed shopping list
+   NEW: shopping list details
    ===================================================== */
-.title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.link-button {
-  background: none;
-  border: none;
-  color: #355C3B;
-  font-size: 17px;
-  font-weight: 700;
-  text-decoration: underline;
-  font-family: 'Manrope', sans-serif;
-  cursor: pointer;
-  padding: 8px 0;
-}
-
 #shoppingQty {
   width: 70px;
   padding: 12px 8px;
@@ -702,8 +607,6 @@ p {
 }
 
 .category-title {
-  display: flex;
-  justify-content: space-between;
   color: #4A544B;
   font-size: 16px;
   font-weight: 800;
@@ -752,26 +655,7 @@ p {
   text-decoration: line-through;
   color: #4A544B;
 }
-.item-qty-controls {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex: none;
-}
-.item-qty-controls button {
-  width: 40px;
-  height: 40px;
-  border: 2px solid #B9CBB3;
-  background: #E3EDDF;
-  color: #355C3B;
-  border-radius: 8px;
-  font-size: 20px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.item-qty-controls span {
-  min-width: 28px;
-  text-align: center;
+.item-qty {
   font-size: 18px;
   font-weight: 700;
   color: #355C3B;
@@ -785,82 +669,6 @@ p {
   height: 40px;
   cursor: pointer;
   flex: none;
-}
-
-.suggestion-box {
-  background: white;
-  border: 1px solid #E1E6DE;
-  border-radius: 10px;
-  margin-top: 12px;
-}
-.suggestion-box summary {
-  padding: 12px 14px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #355C3B;
-  cursor: pointer;
-}
-.suggestion-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-top: 1px solid #E1E6DE;
-  font-size: 18px;
-  color: #355C3B;
-}
-.suggestion-row small {
-  display: block;
-  font-size: 16px;
-  color: #4A544B;
-}
-
-.cart-box {
-  background: #E3EDDF;
-  border-radius: 12px;
-  padding: 14px;
-  margin-top: 18px;
-}
-.cart-box h3 { margin: 0 0 4px; }
-.cart-box p { margin: 0 0 10px; }
-
-.putaway-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  background: white;
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-bottom: 6px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #355C3B;
-}
-.putaway-row select {
-  padding: 8px;
-  border: 2px solid #B9C4B5;
-  border-radius: 8px;
-  font-size: 16px;
-  font-family: 'Manrope', sans-serif;
-}
-
-#shoppingBadge {
-  display: none;
-  position: absolute;
-  top: 8px;
-  left: calc(50% + 14px);
-  min-width: 24px;
-  height: 24px;
-  line-height: 24px;
-  padding: 0 6px;
-  border-radius: 12px;
-  background: #A8392F;
-  color: white;
-  font-size: 15px;
-  font-weight: 700;
-  box-sizing: border-box;
 }
 
 /* NEW: recipe details */
@@ -880,22 +688,4 @@ p {
   font-size: 18px;
   color: #333;
   line-height: 1.6;
-}
-.secondary-button {
-  width: 100%;
-  background: white;
-  color: #355C3B;
-  border: 2px solid #4F7A55;
-  border-radius: 10px;
-  padding: 14px;
-  margin: 6px 0;
-  font-size: 18px;
-  font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-  cursor: pointer;
-}
-.shopping-button:disabled {
-  background: #B9C4B5;
-  color: #333;
-  cursor: not-allowed;
 }

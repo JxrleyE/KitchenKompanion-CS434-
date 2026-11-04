@@ -106,7 +106,7 @@ function displayItems() {
   let user_search = searchBar.value.toLowerCase()
   let count = 0
 
-  // Loop through inventory
+ 
   for (let i = 0; i < inventory.length; i++) {
 
     let item = inventory[i];
@@ -195,7 +195,7 @@ function displayItems() {
 }
 const addItem = document.getElementById("add_item");
 
-// UPDATED: same form is used to add a new item or edit an existing one
+
 function showForm(item) {
   editingItem = item || null;
 
@@ -260,7 +260,7 @@ function deleteEditingItem() {
 changeLocation("Fridge");
 
 // -----------------------------------
-// SHOPPING TAB FEATURES
+// SHOPPING TAB 
 // -----------------------------------
 
 let shoppingItems = [

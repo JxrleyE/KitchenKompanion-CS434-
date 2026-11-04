@@ -121,7 +121,7 @@ function expirationText(item) {
   let parts = item.expiration.split("-");
   let days = Math.round((new Date(parts[0], parts[1] - 1, parts[2]) - today) / 86400000);
 
-  if (days < 0) return { text: "⚠ Expired " + item.expiration, status: "expired" };
+  if (days < 0) return { text: "Expired " + item.expiration, status: "expired" };
   if (days <= 3) return { text: "Expires in " + days + (days === 1 ? " day" : " days"), status: "expiring-soon" };
   return { text: "Expires: " + item.expiration, status: "" };
 }
@@ -145,7 +145,6 @@ function displayItems() {
 
       let card = document.createElement("div");
       card.className = "food-card " + exp.status;  
-      if (item.quantity === 0) card.classList.add("out-of-stock");
 
       let info = document.createElement("div");
       info.className = "food_info";
@@ -158,15 +157,21 @@ function displayItems() {
       name.textContent = item.name;
 
       let owner = document.createElement("span");
+
       owner.className = "tag " + item.owner.toLowerCase();
+
       owner.textContent = item.owner;
 
-      let expiration = document.createElement("p");
-      expiration.textContent = item.quantity === 0 ? "Out of stock" : exp.text;   
-      if (exp.status === "expired") expiration.className = "exp-expired";
+      let expiration = document.createElement("p"); 
+
+      expiration.textContent = exp.text;
+
       if (exp.status === "expiring-soon") expiration.className = "exp-soon";
 
+      if (exp.status === "expired") expiration.className = "exp-expired";
+
       let quantity = document.createElement("p");
+
       quantity.className = "food_quantity";
       quantity.textContent = item.quantity;   
 
@@ -177,25 +182,24 @@ function displayItems() {
       info.appendChild(expiration);
       card.appendChild(info);
 
-      if (item.quantity === 0) {
-        let addToList = document.createElement("button");
-        addToList.className = "small-button";
-        addToList.textContent = "+ Shopping list";
-        addToList.addEventListener("click", function() {
-          addShoppingItem(item.name, 1, guessCategory(item.location), item.owner, "");
-          addToList.textContent = "✓ Added";
-          addToList.disabled = true;
-        });
-        card.appendChild(addToList);
-      }
       let controls = document.createElement("div");
       controls.className = "qty-controls";
 
       let minus = document.createElement("button");
       minus.textContent = "−";
       minus.setAttribute("aria-label", "Use one " + item.name);
+      
       minus.addEventListener("click", function() {
-        if (item.quantity > 0) item.quantity--;
+        if (item.quantity <= 0) return;
+
+        if (item.quantity === 1) {
+          item.quantity = 0;
+          displayItems();
+          setTimeout(function() { showZeroPrompt(item); }, 400);
+          return;
+        }
+
+        item.quantity--;
         saveData();
         displayItems();
       });
@@ -222,7 +226,79 @@ function displayItems() {
     list.innerHTML = "<p class='empty-message'>No matching items found</p>"
   }
 }
+
+// item running out logic
+let zeroItem = null;
+
+function showZeroPrompt(item) {
+  if (item.quantity !== 0) return;
+  zeroItem = item;
+  document.getElementById("zero_title").textContent = item.name + " ran out";
+  document.getElementById("zero_prompt").style.display = "flex";
+}
+
+function cancelZero() {
+  zeroItem.quantity = 1;
+  closeZeroPrompt();
+  displayItems();
+}
+
+function closeZeroPrompt() {
+  document.getElementById("zero_prompt").style.display = "none";
+  zeroItem = null;
+}
+
+function finishZero(addToList) {
+  if (addToList) {
+    addShoppingItem(zeroItem.name, 1, zeroItem.category || guessCategory(zeroItem.location), zeroItem.owner, "");
+  }
+
+  inventory.splice(inventory.indexOf(zeroItem), 1);
+  closeZeroPrompt();
+  saveData();
+  displayItems();
+}
+
 const addItem = document.getElementById("add_item");
+
+const tagSelect = document.getElementById("new_owner");
+const tagFields = document.getElementById("create_tag_fields");
+const tagInput = document.getElementById("custom_tag_name");
+let customTags = loadSavedArray("kk_custom_tags", []);
+
+function addTagOption(tag) {
+  if (Array.from(tagSelect.options).some(option => option.value.toLowerCase() === tag.toLowerCase())) return;
+  let option = document.createElement("option");
+  option.value = tag;
+  option.textContent = tag;
+  tagSelect.add(option, tagSelect.options.length - 1);
+}
+
+for (let tag of customTags) addTagOption(tag);
+for (let item of inventory) {
+  if (item.owner && item.owner !== "Mine" && item.owner !== "Shared") addTagOption(item.owner);
+}
+
+tagSelect.addEventListener("change", function() {
+  tagFields.style.display = tagSelect.value === "create_tag" ? "block" : "none";
+});
+
+function createTag() {
+  let tag = tagInput.value.trim();
+  if (!tag) return;
+  if (tag.toLowerCase() === "create_tag") return;
+  addTagOption(tag);
+  let option = Array.from(tagSelect.options).find(option => option.value.toLowerCase() === tag.toLowerCase());
+  tagSelect.value = option.value;
+  if (!customTags.some(saved => saved.toLowerCase() === tag.toLowerCase()) && tagSelect.value !== "Mine" && tagSelect.value !== "Shared") {
+    customTags.push(tag);
+    try { localStorage.setItem("kk_custom_tags", JSON.stringify(customTags)); }
+    catch (error) { console.warn("Could not save tags:", error); }
+  }
+  tagInput.value = "";
+  tagFields.style.display = "none";
+}
+
 
 
 function showForm(item) {
@@ -233,7 +309,10 @@ function showForm(item) {
     document.getElementById("new_name").value = editingItem.name;
     document.getElementById("new_quantity").value = editingItem.quantity;
     document.getElementById("new_expiration").value = editingItem.expiration;
+    addTagOption(editingItem.owner);
     document.getElementById("new_owner").value = editingItem.owner;
+    document.getElementById("new_category").value =
+      editingItem.category || guessCategory(editingItem.location);
     document.getElementById("add_submit").textContent = "Save";
     document.getElementById("delete_item").style.display = "block";
   } else {
@@ -243,7 +322,9 @@ function showForm(item) {
     document.getElementById("add_submit").textContent = "Add";
     document.getElementById("delete_item").style.display = "none";
   }
-
+  document.getElementById("new_category").value = guessCategory(currentLocation);
+  tagFields.style.display = "none";
+  tagInput.value = "";
   addItem.style.display = "block";
   document.getElementById("form_backdrop").style.display = "block";
 }
@@ -252,6 +333,8 @@ function hideForm() {
   addItem.style.display = "none";
   document.getElementById("form_backdrop").style.display = "none";
   addItem.reset();
+  tagFields.style.display = "none";
+  tagInput.value = "";
   editingItem = null;
 }
 
@@ -261,12 +344,18 @@ addItem.addEventListener("submit", function(event) {
   let name = document.getElementById("new_name").value.trim();
   if (name == "") return;
 
+  if (tagSelect.value === "create_tag") {
+    createTag();
+    if (tagSelect.value === "create_tag") return;
+  }
+
   let details = {
     name: name,
     quantity: Number(document.getElementById("new_quantity").value),
     location: currentLocation,
     expiration: document.getElementById("new_expiration").value,
-    owner: document.getElementById("new_owner").value
+    owner: document.getElementById("new_owner").value,
+    category: document.getElementById("new_category").value
   };
 
   if (editingItem) {
@@ -411,6 +500,7 @@ function putAwayItems() {
       match.quantity += item.quantity;
     } else {
       inventory.push({ name: item.name, quantity: item.quantity, location: location, expiration: "", owner: item.owner });
+      category: item.category
     }
   });
   shoppingItems = shoppingItems.filter(item => !item.checked);

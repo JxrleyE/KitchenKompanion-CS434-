@@ -1,253 +1,302 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kitchen Kompanion</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kitchen Kompanion</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
 
-<body>
-  <div class="device">
-
-    <!-- Kitchen Screen -->
-    <div id="Kitchen" class="tabcontent scroll">
-
-
-      <div class="sticky-top">
-        <h1 id="kitchen_header">Kitchen Kompanion</h1>
-
-        <div class="storage-buttons">
-          <button onclick="changeLocation('Fridge')">Fridge</button>
-          <button onclick="changeLocation('Pantry')">Pantry</button>
-          <button onclick="changeLocation('Freezer')">Freezer</button>
-        </div>
-
-        <input type="text" id="search_bar" placeholder="Search items">
-      </div>
-
-    
-      <div id="form_backdrop" onclick="hideForm()"></div>
-
-      <form id ="add_item">
-        <h3 id="add_title"> Add Item</h3>
-        <label for="new_name">Item name</label>
-        <input type="text" id="new_name" required>
-        <label for="new_quantity">Quantity</label>
-        <input type="number" id="new_quantity" min="0" value="1" required>
-        <label for="new_expiration">Expiration date</label>
-        <input type="date" id="new_expiration">
-        <label for="new_owner">Tag</label>
-        <select id="new_owner">
-          <option>Mine</option>
-          <option>Shared</option>
-        </select>
-        <button type="submit" id="add_submit">Add</button>
-        <button type="button" onclick="hideForm()">Cancel</button>
-       
-        <button type="button" id="delete_item" onclick="deleteEditingItem()">Remove item</button>
-      </form>
-
-      <h3 id="locationTitle">Fridge Items</h3>
-
-      <div id="inventoryList"></div>
-
-      <button id="add_item_button" onclick="showForm()">+ Add Item </button>
-
-    </div>
-
-
-    <div id="Shopping" class="tabcontent scroll">
-
-      <div class="sticky-top">
-        <h2>Shopping List</h2>
-        <p id="shoppingSummary">Plan your next grocery trip.</p>
-
-        <form id="shoppingForm">
-          <input id="shoppingInput" type="text" placeholder="Add an item" required>
-          <input id="shoppingQty" type="number" min="1" value="1" aria-label="Quantity">
-          <button type="submit">Add</button>
-          <div class="shopping-options">
-            <select id="shoppingCategory" aria-label="Store section">
-              <option>Produce</option>
-              <option>Dairy &amp; Eggs</option>
-              <option>Meat</option>
-              <option>Pantry</option>
-              <option>Frozen</option>
-              <option>Other</option>
-            </select>
-            <select id="shoppingOwner" aria-label="Who it's for">
-              <option>Shared</option>
-              <option>Mine</option>
-            </select>
-            <input id="shoppingNote" type="text" placeholder="Note (brand, size…)">
-          </div>
-        </form>
-      </div>
-      <section class="template-panel">
-  <h3>Saved Shopping Lists</h3>
-
-  <div class="template-row">
-    <input
-      id="templateName"
-      type="text"
-      placeholder="List name (e.g. Weekly groceries)"
-    >
-    <button type="button" onclick="saveShoppingTemplate()">
-      Save current list
-    </button>
-  </div>
-
-  <div class="template-row">
-    <select id="templateSelect"></select>
-
-    <button type="button" onclick="loadShoppingTemplate()">
-      Load
-    </button>
-
-    <button type="button" class="delete-template"
-            onclick="deleteShoppingTemplate()">
-      Delete
-    </button>
-    </div>
-    </section>
-      <ul id="shoppingList"></ul>
-
-    
-      <button id="putAwayButton" class="shopping-button" onclick="putAwayItems()">Move checked items to kitchen</button>
-    </div>
-
-
-    <div id="Recipes" class="tabcontent scroll">
-
-      <div id="recipeList">
-
+  <body>
+    <div class="device">
+      <!-- Kitchen Screen -->
+      <div id="Kitchen" class="tabcontent scroll">
         <div class="sticky-top">
-          <h2>Recipes</h2>
-          <p>Find recipes using ingredients you already have.</p>
+          <h1 id="kitchen_header">Kitchen Kompanion</h1>
 
-          <input
-            type="text"
-            id="recipeSearch"
-            placeholder="Search recipes..."
-            onkeyup="searchRecipes()"
-          >
-          <label class="dietary-filter-label" for="dietaryFilter">
-  Dietary preference
-  </label>
+          <div class="storage-buttons">
+            <button onclick="changeLocation('Fridge')">Fridge</button>
+            <button onclick="changeLocation('Pantry')">Pantry</button>
+            <button onclick="changeLocation('Freezer')">Freezer</button>
+          </div>
 
-  <select id="dietaryFilter" onchange="searchRecipes()">
-    <option value="All">All recipes</option>
-    <option value="Vegetarian">Vegetarian</option>
-    <option value="Gluten-Free">Gluten-Free</option>
-  </select>
+          <input type="text" id="search_bar" placeholder="Search items" />
         </div>
 
-        <h3>Recommended for You</h3>
+        <div id="form_backdrop" onclick="hideForm()"></div>
 
-      <div class="recipe-card"
-     onclick="showRecipe('alfredo')"
-     role="button"
-     tabindex="0"
-     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); showRecipe('alfredo'); }">
-  <div>
-    <h4>Alfredo Pasta</h4>
-    <p>30 min • 6 ingredients</p>
-    <span class="almost-ready">
-      You have 4 of 6 ingredients
-    </span>
-    <span class="view-recipe">View Recipe →</span>
-  </div>
-</div>
+        <form id="add_item">
+          <h3 id="add_title">Add Item</h3>
+          <label for="new_name">Item name</label>
+          <input type="text" id="new_name" required />
+          <label for="new_category">Food type</label>
+          <select id="new_category">
+            <option>Produce</option>
+            <option>Dairy &amp; Eggs</option>
+            <option>Meat</option>
+            <option>Pantry</option>
+            <option>Frozen</option>
+            <option>Other</option>
+          </select>
+          <label for="new_quantity">Quantity</label>
+          <input type="number" id="new_quantity" min="1" value="1" required />
+          <label for="new_expiration">Expiration date</label>
+          <input type="date" id="new_expiration" />
+          <label for="new_owner">Tag</label>
+          <select id="new_owner">
+            <option>Mine</option>
+            <option>Shared</option>
+            <option value="create_tag">+ Create New Tag</option>
+          </select>
+          <div id="create_tag_fields" style="display: none;">
+            <input type="text" id="custom_tag_name" placeholder="New tag name" />
+            <button type="button" onclick="createTag()">Create Tag</button>
+          </div>
+          <button type="submit" id="add_submit">Add</button>
+          <button type="button" onclick="hideForm()">Cancel</button>
 
-<div class="recipe-card"
-     onclick="showRecipe('omelet')"
-     role="button"
-     tabindex="0"
-     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); showRecipe('omelet'); }">
-  <div>
-    <h4>Cheese Omelet</h4>
-    <p>15 min • 5 ingredients</p>
-    <span class="ready">
-      ✓ You have everything
-    </span>
-    <span class="view-recipe">View Recipe →</span>
-  </div>
-</div>
+          <button type="button" id="delete_item" onclick="deleteEditingItem()">
+            Remove item
+          </button>
+        </form>
 
-<div class="recipe-card"
-     onclick="showRecipe('tacos')"
-     role="button"
-     tabindex="0"
-     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); showRecipe('tacos'); }">
-  <div>
-    <h4>Chicken Tacos</h4>
-    <p>25 min • 7 ingredients</p>
-    <span class="almost-ready">
-      You have 2 of 7 ingredients
-    </span>
-    <span class="view-recipe">View Recipe →</span>
-  </div>
-  
-</div>
+        <div id="zero_prompt">
+          <div class="zero_box">
+            <h3 id="zero_title">Item ran out</h3>
+            <p>Add it to your shopping list?</p>
+            <button type="button" class="primary" onclick="finishZero(true)">
+              Yes, add to shopping list
+            </button>
+            <button type="button" onclick="finishZero(false)">
+              No, just remove it
+            </button>
+            <button type="button" onclick="cancelZero()">Cancel</button>
+          </div>
+        </div>
 
-<div class="recipe-card"
-     onclick="showRecipe('tacos')"
-     role="button"
-     tabindex="0"
-     onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); showRecipe('tacos'); }">
-  <div>
-    <h4>Chicken Tacos</h4>
-    <p>25 min • 7 ingredients</p>
-    <span class="almost-ready">
-      You have 2 of 7 ingredients
-    </span>
-    <span class="view-recipe">View Recipe →</span>
-  </div>
-</div>
+        <h3 id="locationTitle">Fridge Items</h3>
 
+        <div id="inventoryList"></div>
 
-<p id="noRecipesMessage"
-   class="empty-message"
-   style="display:none;">
-  No recipes match your filters.
-</p>
+        <button id="add_item_button" onclick="showForm()">+ Add Item</button>
+      </div>
 
-</div>
+      <div id="Shopping" class="tabcontent scroll">
+        <div class="sticky-top">
+          <h2>Shopping List</h2>
+          <p id="shoppingSummary">Plan your next grocery trip.</p>
 
-<div id="recipeDetails" style="display:none;"></div>
+          <form id="shoppingForm">
+            <input
+              id="shoppingInput"
+              type="text"
+              placeholder="Add an item"
+              required
+            />
+            <input
+              id="shoppingQty"
+              type="number"
+              min="1"
+              value="1"
+              aria-label="Quantity"
+            />
+            <button type="submit">Add</button>
+            <div class="shopping-options">
+              <select id="shoppingCategory" aria-label="Store section">
+                <option>Produce</option>
+                <option>Dairy &amp; Eggs</option>
+                <option>Meat</option>
+                <option>Pantry</option>
+                <option>Frozen</option>
+                <option>Other</option>
+              </select>
+              <select id="shoppingOwner" aria-label="Who it's for">
+                <option>Shared</option>
+                <option>Mine</option>
+              </select>
+              <input
+                id="shoppingNote"
+                type="text"
+                placeholder="Note (brand, size…)"
+              />
+            </div>
+          </form>
+        </div>
+        
+        <details class="template-panel">
+          <summary>Saved Shopping Lists</summary>
 
-</div>
+          <div class="template-row">
+            <input
+              id="templateName"
+              type="text"
+              placeholder="List name (e.g. Weekly groceries)"
+            />
+            <button type="button" onclick="saveShoppingTemplate()">
+              Save current list
+            </button>
+          </div>
 
-    <div class="footer">
+          <div class="template-row">
+            <select id="templateSelect"></select>
 
-      <button class="tablink active"
-              onclick="openCity('Kitchen')"
-              id="defaultOpen">
+            <button type="button" onclick="loadShoppingTemplate()">Load</button>
 
-        <img src="icons/fridge-active.svg" class="tabicon" alt="">
-        Kitchen
-      </button>
+            <button
+              type="button"
+              class="delete-template"
+              onclick="deleteShoppingTemplate()"
+            >
+              Delete
+            </button>
+          </div>
+        </details>
 
-      <button
-        class="tablink"
-        onclick="openCity('Shopping')">
+        <ul id="shoppingList"></ul>
 
-        <img src="icons/cart-inactive.svg" class="tabicon" alt="">
-        Shopping
-      </button>
+        <button
+          id="putAwayButton"
+          class="shopping-button"
+          onclick="putAwayItems()"
+        >
+          Move checked items to kitchen
+        </button>
+      </div>
 
-      <button
-        class="tablink"
-        onclick="openCity('Recipes')">
+      <div id="Recipes" class="tabcontent scroll">
+        <div id="recipeList">
+          <div class="sticky-top">
+            <h2>Recipes</h2>
+            <p>Find recipes using ingredients you already have.</p>
 
-         <img src="icons/recipes-inactive.svg" class="tabicon" alt="">
-        Recipes
-      </button>
+            <input
+              type="text"
+              id="recipeSearch"
+              placeholder="Search recipes..."
+              onkeyup="searchRecipes()"
+            />
+            <label class="dietary-filter-label" for="dietaryFilter">
+              Dietary preference
+            </label>
 
+            <select id="dietaryFilter" onchange="searchRecipes()">
+              <option value="All">All recipes</option>
+              <option value="Vegetarian">Vegetarian</option>
+              <option value="Gluten-Free">Gluten-Free</option>
+            </select>
+          </div>
+
+          <h3>Recommended for You</h3>
+
+          <div
+            class="recipe-card"
+            onclick="showRecipe('alfredo')"
+            role="button"
+            tabindex="0"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                showRecipe('alfredo');
+              }
+            "
+          >
+            <div>
+              <h4>Alfredo Pasta</h4>
+              <p>30 min • 6 ingredients</p>
+              <span class="almost-ready"> You have 4 of 6 ingredients </span>
+              <span class="view-recipe">View Recipe →</span>
+            </div>
+          </div>
+
+          <div
+            class="recipe-card"
+            onclick="showRecipe('omelet')"
+            role="button"
+            tabindex="0"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                showRecipe('omelet');
+              }
+            "
+          >
+            <div>
+              <h4>Cheese Omelet</h4>
+              <p>15 min • 5 ingredients</p>
+              <span class="ready"> ✓ You have everything </span>
+              <span class="view-recipe">View Recipe →</span>
+            </div>
+          </div>
+
+          <div
+            class="recipe-card"
+            onclick="showRecipe('tacos')"
+            role="button"
+            tabindex="0"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                showRecipe('tacos');
+              }
+            "
+          >
+            <div>
+              <h4>Chicken Tacos</h4>
+              <p>25 min • 7 ingredients</p>
+              <span class="almost-ready"> You have 2 of 7 ingredients </span>
+              <span class="view-recipe">View Recipe →</span>
+            </div>
+          </div>
+
+          <div
+            class="recipe-card"
+            onclick="showRecipe('tacos')"
+            role="button"
+            tabindex="0"
+            onkeydown="
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                showRecipe('tacos');
+              }
+            "
+          >
+            <div>
+              <h4>Chicken Tacos</h4>
+              <p>25 min • 7 ingredients</p>
+              <span class="almost-ready"> You have 2 of 7 ingredients </span>
+              <span class="view-recipe">View Recipe →</span>
+            </div>
+          </div>
+
+          <p id="noRecipesMessage" class="empty-message" style="display: none">
+            No recipes match your filters.
+          </p>
+        </div>
+
+        <div id="recipeDetails" style="display: none"></div>
+      </div>
+
+      <div class="footer">
+        <button
+          class="tablink active"
+          onclick="openCity('Kitchen')"
+          id="defaultOpen"
+        >
+          <img src="icons/fridge-active.svg" class="tabicon" alt="" />
+          Kitchen
+        </button>
+
+        <button class="tablink" onclick="openCity('Shopping')">
+          <img src="icons/cart-inactive.svg" class="tabicon" alt="" />
+          Shopping
+        </button>
+
+        <button class="tablink" onclick="openCity('Recipes')">
+          <img src="icons/recipes-inactive.svg" class="tabicon" alt="" />
+          Recipes
+        </button>
+      </div>
     </div>
-
-  </div>
-</body>
+  </body>
 </html>

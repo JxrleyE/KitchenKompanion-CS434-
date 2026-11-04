@@ -1,5 +1,3 @@
-
-
 body {
   margin: 0;
   background-color: #e8ede6;
@@ -23,32 +21,32 @@ h1 {
   font-family: 'Josefin Sans', sans-serif;
   color: #4F7A55;
   font-size: 35px;
-  margin: 0 0 12px;        
+  margin: 0 0 12px;
 }
 
 h2 {
   font-family: 'Josefin Sans', sans-serif;
   color: #355C3B;
-  font-size: 30px;           
-  margin: 0 0 6px;           
+  font-size: 30px;
+  margin: 0 0 6px;
 }
 
 h3 {
   color: #355C3B;
   font-size: 20px;
-  margin-top: 20px;         
+  margin-top: 20px;
 }
 
 p {
-  color: #4A544B;            
-  font-size: 17px;           
+  color: #4A544B;
+  font-size: 17px;
   line-height: 1.5;
 }
 
 /* Screen content */
 .tabcontent {
   display: none;
-  padding: 0 24px 24px;      
+  padding: 0 24px 24px;
   text-align: left;
   height: calc(100% - 100px);
   overflow-y: auto;
@@ -60,7 +58,6 @@ p {
   box-sizing: border-box;
 }
 
-
 .footer {
   position: absolute;
   bottom: 0;
@@ -71,13 +68,13 @@ p {
   background-color: #FFFFFF;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);  
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
 }
 
 .tablink {
   position: relative;
   background-color: #FFFFFF;
-  color: #555555;            
+  color: #555555;
   border: none;
   outline: none;
   cursor: pointer;
@@ -88,7 +85,7 @@ p {
   justify-content: center;
   gap: 4px;
   padding: 4px 6px;
-  font-size: 17px;          
+  font-size: 17px;
   font-family: 'Manrope', sans-serif;
 }
 
@@ -103,37 +100,37 @@ p {
 }
 
 .tag {
-  font-size: 16px;          
-  font-weight: 600;
-  padding: 2px 10px;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 1px 9px;
   border-radius: 10px;
 }
 
 .tag.mine {
   background-color: #F6D5D1;
-  color: #7A3A31;            
+  color: #7A3A31;
 }
 
 .tag.shared {
   background-color: #D6E6F2;
-  color: #2F4F69;            
+  color: #2F4F69;
 }
 
 .storage-buttons {
   display: flex;
   gap: 10px;
-  margin: 0 0 12px;         
+  margin: 0 0 12px;
 }
 
 .storage-buttons button {
   flex: 1;
   background-color: #E3EDDF;
   color: #355C3B;
-  border: 2px solid #B9CBB3;  
+  border: 2px solid #B9CBB3;
   border-radius: 25px;
   padding: 12px;
   cursor: pointer;
-  font-size: 18px;           
+  font-size: 18px;
   font-weight: 600;
   font-family: 'Manrope', sans-serif;
 }
@@ -142,6 +139,7 @@ p {
   background-color: #4F7A55;
   color: white;
 }
+
 .storage-buttons button.active {
   background-color: #4F7A55;
   border-color: #4F7A55;
@@ -150,19 +148,21 @@ p {
 
 .food-card {
   background-color: white;
-  padding: 10px 12px;        
-  margin-bottom: 8px;         
+  padding: 12px 14px;
+  margin-bottom: 10px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   gap: 14px;
   border: 1px solid #E1E6DE;
   border-left: 6px solid transparent;
+  font-size: 16px;
+  color: #355C3B;
 }
 
 .food_info {
   flex: 1;
-  cursor: pointer;          
+  cursor: pointer;
 }
 
 .food_name_row {
@@ -175,22 +175,16 @@ p {
 
 .food-card h4 {
   color: #355C3B;
-  font-size: 20px;           
+  font-size: 22px;
   margin: 0;
 }
 
 .food-card p {
-  color: #4A544B;          
-  font-size: 16px;          
-  font-weight: 600;
+  color: #4A544B;
+  font-size: 18px;
+  font-weight: 500;
   margin: 0;
   line-height: 1.3;
-}
-
-.food-card {
-  font-size: 16px;
-  font-weight: bold;
-  color: #355C3B;
 }
 
 .food_quantity {
@@ -202,24 +196,25 @@ p {
 #locationTitle {
   color: #355C3B;
   font-size: 20px;
-  margin: 16px 0 10px;       
+  margin: 16px 0 10px;
 }
 
 #Kitchen {
-  padding-bottom: 90px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E1E6DE;
 }
 
 #add_item_button {
   position: absolute;
-  right: 25px;
-  bottom: 115px;
+  right: 24px;
+  bottom: 112px;
   background-color: #4F7A55;
   color: white;
   border: none;
   border-radius: 25px;
-  padding: 16px 24px;
+  padding: 14px 22px;
   font-family: 'Manrope', sans-serif;
-  font-size: 18px;           
+  font-size: 20px;
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
@@ -252,27 +247,28 @@ p {
   box-sizing: border-box;
   padding: 12px;
   margin-bottom: 12px;
-  border: 2px solid #B9C4B5; 
+  border: 2px solid #B9C4B5;
   border-radius: 8px;
   font-family: 'Manrope', sans-serif;
-  font-size: 18px;           
+  font-size: 18px;
 }
+
 #add_item select {
   width: 100%;
   box-sizing: border-box;
   padding: 12px;
   margin-bottom: 12px;
-  border: 2px solid #B9C4B5;  
+  border: 2px solid #B9C4B5;
   border-radius: 8px;
   font-family: 'Manrope', sans-serif;
-  font-size: 18px;          
+  font-size: 18px;
   background: white;
 }
 
 #add_item label {
   display: block;
   color: #355C3B;
-  font-size: 16px;           
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 5px;
 }
@@ -283,7 +279,7 @@ p {
   border-radius: 8px;
   background-color: #E3EDDF;
   color: #355C3B;
-  font-size: 18px;          
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -292,7 +288,6 @@ p {
   background-color: #4F7A55;
   color: white;
 }
-
 
 #shoppingForm {
   display: flex;
@@ -307,7 +302,7 @@ p {
   padding: 12px;
   border: 2px solid #B9C4B5;
   border-radius: 8px;
-  font-size: 18px;          
+  font-size: 20px;
   font-family: 'Manrope', sans-serif;
 }
 
@@ -317,7 +312,7 @@ p {
   border-radius: 8px;
   background-color: #4F7A55;
   color: white;
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   font-family: 'Manrope', sans-serif;
   cursor: pointer;
@@ -336,11 +331,11 @@ p {
   width: 100%;
   box-sizing: border-box;
   padding: 13px 18px;
-  border: 2px solid #B9C4B5;  
+  border: 2px solid #B9C4B5;
   border-radius: 25px;
   background-color: white;
   font-family: 'Manrope', sans-serif;
-  font-size: 18px;           
+  font-size: 18px;
 }
 
 #search_bar:focus {
@@ -352,38 +347,32 @@ p {
   box-sizing: border-box;
   padding: 13px 15px;
   margin: 6px 0 12px;
-  border: 2px solid #B9C4B5; 
+  border: 2px solid #B9C4B5;
   border-radius: 10px;
   background-color: white;
   font-family: 'Manrope', sans-serif;
-  font-size: 18px;           
+  font-size: 20px;
 }
 
 #recipeSearch:focus {
   outline: 2px solid #4F7A55;
 }
 
-.recipe-card 
-{
+.recipe-card {
   background-color: white;
   padding: 20px;
   margin-bottom: 15px;
   border-radius: 12px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   cursor: pointer;
-
   border: 2px solid #B9CBB3;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-
   transition: 0.2s;
 }
 
-.recipe-card:hover 
-{
+.recipe-card:hover {
   background-color: #F1F5EF;
   border-color: #4F7A55;
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
@@ -398,19 +387,19 @@ p {
 .view-recipe {
   display: block;
   color: #4F7A55;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   margin-top: 10px;
 }
 
 .recipe-card h4 {
   color: #355C3B;
-  font-size: 21px;           
+  font-size: 23px;
   margin: 0 0 4px;
 }
 
 .recipe-card p {
-  font-size: 17px;          
+  font-size: 19px;
   margin: 0 0 6px;
 }
 
@@ -420,14 +409,14 @@ p {
 }
 
 .ready {
-  color: #3F6845;             
-  font-size: 17px;           
+  color: #3F6845;
+  font-size: 19px;
   font-weight: bold;
 }
 
 .almost-ready {
-  color: #6E5630;             
-  font-size: 17px;         
+  color: #6E5630;
+  font-size: 19px;
   font-weight: 600;
 }
 
@@ -436,7 +425,7 @@ p {
   background: none;
   color: #4F7A55;
   font-family: 'Manrope', sans-serif;
-  font-size: 18px;           
+  font-size: 20px;
   font-weight: 700;
   cursor: pointer;
   padding: 12px 0;
@@ -453,7 +442,7 @@ p {
   margin-bottom: 8px;
   padding: 12px;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .have-ingredient {
@@ -462,7 +451,7 @@ p {
 }
 
 .missing-ingredient {
-  color: #7A3A31;            
+  color: #7A3A31;
   border-left: 6px solid #C0574B;
 }
 
@@ -474,7 +463,7 @@ p {
   border-radius: 10px;
   padding: 14px;
   margin: 10px 0;
-  font-size: 18px;           
+  font-size: 18px;
   font-weight: 700;
   font-family: 'Manrope', sans-serif;
   cursor: pointer;
@@ -493,8 +482,6 @@ p {
   font-size: 17px;
 }
 
-
-
 .sticky-top {
   position: sticky;
   top: 0;
@@ -504,51 +491,59 @@ p {
   padding: 24px 24px 12px;
   border-bottom: 1px solid #E1E6DE;
 }
-.sticky-top p { margin: 0; }
 
+.sticky-top p {
+  margin: 0;
+}
 
-.food-card.expiring-soon { border-left-color: #C98A1B; }
-.food-card.expired { border-left-color: #C0574B; }
-.exp-soon { color: #6E4A00 !important; }
-.exp-expired { color: #8E2A21 !important; }
-.food-card.out-of-stock { opacity: 0.75; }
+.food-card.expiring-soon {
+  border-left-color: #C98A1B;
+}
 
+.food-card.expired {
+  border-left-color: #C0574B;
+}
+
+.exp-soon {
+  color: #6E4A00 !important;
+  font-weight: 700 !important;
+}
+
+.exp-expired {
+  color: #8E2A21 !important;
+  font-weight: 700 !important;
+}
 
 .qty-controls {
   display: flex;
   align-items: center;
-  border: 2px solid #B9CBB3;
-  border-radius: 10px;
-  overflow: hidden;
+  gap: 6px;
   flex: none;
 }
+
 .qty-controls button {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border: none;
+  border-radius: 50%;
   background: #E3EDDF;
   color: #355C3B;
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 700;
   cursor: pointer;
-}
-.qty-controls .food_quantity {
-  min-width: 48px;
-  text-align: center;
-  margin: 0;
 }
 
-.small-button {
-  background: white;
-  color: #355C3B;
-  border: 2px solid #4F7A55;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 16px;
+.qty-controls button:hover {
+  background: #CFE0CA;
+}
+
+.qty-controls .food_quantity {
+  min-width: 28px;
+  text-align: center;
+  margin: 0;
+  font-size: 20px;
   font-weight: 700;
-  font-family: 'Manrope', sans-serif;
-  cursor: pointer;
-  white-space: nowrap;
+  color: #355C3B;
 }
 
 .empty-message {
@@ -558,7 +553,6 @@ p {
   padding: 24px 0;
 }
 
-
 #form_backdrop {
   display: none;
   position: absolute;
@@ -566,6 +560,7 @@ p {
   background: rgba(20, 30, 22, 0.45);
   z-index: 40;
 }
+
 #add_item #delete_item {
   display: none;
   width: 100%;
@@ -575,32 +570,36 @@ p {
   border: 2px solid #C0574B;
 }
 
-
 #shoppingQty {
   width: 70px;
   padding: 12px 8px;
   border: 2px solid #B9C4B5;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 20px;
   text-align: center;
   font-family: 'Manrope', sans-serif;
 }
+
 .shopping-options {
   display: flex;
   gap: 8px;
   width: 100%;
 }
+
 .shopping-options select,
 .shopping-options input {
   padding: 10px;
   border: 2px solid #B9C4B5;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 18px;
   font-family: 'Manrope', sans-serif;
   background: white;
   min-width: 0;
 }
-.shopping-options input { flex: 1; }
+
+.shopping-options input {
+  flex: 1;
+}
 
 #shoppingList {
   list-style: none;
@@ -610,7 +609,7 @@ p {
 
 .category-title {
   color: #4A544B;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -627,41 +626,48 @@ p {
   padding: 10px 12px;
   margin-bottom: 8px;
 }
+
 .shopping-item input[type="checkbox"] {
   width: 28px;
   height: 28px;
   flex: none;
   cursor: pointer;
 }
+
 .shopping-item .item-text {
   flex: 1;
   min-width: 0;
 }
+
 .shopping-item label {
   display: block;
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 700;
   color: #355C3B;
   cursor: pointer;
 }
+
 .shopping-item .item-details {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
   margin-top: 4px;
-  font-size: 16px;
+  font-size: 18px;
   color: #4A544B;
 }
+
 .shopping-item.checked label {
   text-decoration: line-through;
   color: #4A544B;
 }
+
 .item-qty {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #355C3B;
 }
+
 .remove-button {
   background: none;
   border: none;
@@ -673,21 +679,22 @@ p {
   flex: none;
 }
 
-
 .recipe-meta {
-  font-size: 17px;
+  font-size: 19px;
   color: #4A544B;
   margin: 0 0 6px;
 }
+
 .ingredient-list li small {
   display: block;
-  font-size: 16px;
+  font-size: 18px;
   color: #4A544B;
   margin-top: 2px;
 }
+
 .recipe-steps {
   padding-left: 24px;
-  font-size: 18px;
+  font-size: 20px;
   color: #333;
   line-height: 1.6;
 }
@@ -702,6 +709,13 @@ p {
 
 .template-panel h3 {
   margin: 0 0 8px;
+}
+
+.template-panel summary {
+  color: #355C3B;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .template-row {
@@ -721,6 +735,7 @@ p {
   border-radius: 8px;
   background: white;
   font: inherit;
+  font-size: 18px;
 }
 
 .template-row button {
@@ -730,6 +745,7 @@ p {
   background: #4F7A55;
   color: white;
   font: inherit;
+  font-size: 18px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -738,18 +754,69 @@ p {
   background: #8E2A21;
 }
 
-
 .dietary-filter-label {
   display: block;
   font-weight: 700;
   margin: 6px 0;
   color: #355C3B;
+  font-size: 18px;
 }
 
 #dietaryFilter {
   width: 100%;
   box-sizing: border-box;
+  font-size: 20px;
 }
 
+#zero_prompt {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  background: rgba(20, 30, 22, 0.45);
+  align-items: center;
+  justify-content: center;
+}
 
+.zero_box {
+  background-color: white;
+  width: 80%;
+  padding: 24px;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
 
+.zero_box h3 {
+  margin: 0 0 6px;
+  font-size: 22px;
+}
+
+.zero_box p {
+  margin: 0 0 12px;
+}
+
+.zero_box button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border: 2px solid #4F7A55;
+  border-radius: 8px;
+  background-color: white;
+  color: #355C3B;
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.zero_box .primary {
+  background-color: #4F7A55;
+  color: white;
+}
+
+/* Custom inventory tags */
+.tag:not(.mine):not(.shared) {
+  background-color: #E3EDDF;
+  color: #355C3B;
+}

@@ -13,57 +13,116 @@
 
     <!-- Kitchen Screen -->
     <div id="Kitchen" class="tabcontent scroll">
-      <h1 id="kitchen_header">Kitchen Kompanion</h1>
-      
-  <div class="storage-buttons">
-    <button onclick="changeLocation('Fridge')">Fridge</button>
-    <button onclick="changeLocation('Pantry')">Pantry</button>
-    <button onclick="changeLocation('Freezer')">Freezer</button>
-  </div>
 
-  <input type="text" id="search_bar" placeholder="Search items">
+      <!-- NEW: header area stays pinned while the item list scrolls -->
+      <div class="sticky-top">
+        <h1 id="kitchen_header">Kitchen Kompanion</h1>
 
-  <form id ="add_item">
-    <h3 id="add_title"> Add Item</h3>
+        <div class="storage-buttons">
+          <button onclick="changeLocation('Fridge')">Fridge</button>
+          <button onclick="changeLocation('Pantry')">Pantry</button>
+          <button onclick="changeLocation('Freezer')">Freezer</button>
+        </div>
+
+        <input type="text" id="search_bar" placeholder="Search items">
+
+        <!-- NEW: quick filters -->
+        <div class="filter-chips">
+          <button class="chip active" onclick="setFilter('All')">All</button>
+          <button class="chip" onclick="setFilter('Expiring')">Expiring soon</button>
+          <button class="chip" onclick="setFilter('Mine')">Mine</button>
+          <button class="chip" onclick="setFilter('Shared')">Shared</button>
+        </div>
+      </div>
+
+      <!-- NEW: dimmed background behind the add/edit form -->
+      <div id="form_backdrop" onclick="hideForm()"></div>
+
+      <form id ="add_item">
+        <h3 id="add_title"> Add Item</h3>
         <label for="new_name">Item name</label>
-    <input type="text" id="new_name" required>
-    <label for="new_quantity">Quantity</label>
-    <input type="number" id="new_quantity" min="1" value="1" required>
-    <label for="new_expiration">Expiration date</label>
-    <input type="date" id="new_expiration">
-    <label for="new_owner">Tag</label>
-    <select id="new_owner">
-      <option>Mine</option>
-      <option>Shared</option>
-    </select>
-    </select>
-    <button type="submit">Add</button>
-    <button type="button" onclick="hideForm()">Cancel</button>
-  </form>
+        <input type="text" id="new_name" required>
+        <label for="new_quantity">Quantity</label>
+        <input type="number" id="new_quantity" min="1" value="1" required>
+        <!-- NEW: location can be changed when adding or editing -->
+        <label for="new_location">Location</label>
+        <select id="new_location">
+          <option>Fridge</option>
+          <option>Pantry</option>
+          <option>Freezer</option>
+        </select>
+        <label for="new_expiration">Expiration date</label>
+        <input type="date" id="new_expiration">
+        <label for="new_owner">Tag</label>
+        <select id="new_owner">
+          <option>Mine</option>
+          <option>Shared</option>
+        </select>
+        <button type="submit" id="add_submit">Add</button>
+        <button type="button" onclick="hideForm()">Cancel</button>
+        <!-- NEW: only shown when editing an existing item -->
+        <button type="button" id="delete_item" onclick="deleteEditingItem()">Remove item</button>
+      </form>
 
-  
+      <div class="list-header">
+        <h3 id="locationTitle">Fridge Items</h3>
+        <span id="itemCount"></span>
+      </div>
 
-  
-  <h3 id="locationTitle">Fridge Items</h3>
+      <!-- NEW: "found in another location" message for search -->
+      <div id="otherLocation"></div>
 
-  <div id="inventoryList"></div>
+      <div id="inventoryList"></div>
 
-  <button id="add_item_button" onclick="showForm()">+ Add Item </button>
+      <button id="add_item_button" onclick="showForm()">+ Add Item </button>
 
-</div>
-   
+    </div>
+
 
     <!-- Shopping Screen -->
     <div id="Shopping" class="tabcontent scroll">
-      <h2>Shopping List</h2>
-      <p>Plan your next grocery trip.</p>
 
-      <form id="shoppingForm">
-        <input id="shoppingInput" type="text" placeholder="Add an item" required>
-        <button type="submit">Add</button>
-      </form>
+      <div class="sticky-top">
+        <div class="title-row">
+          <h2>Shopping List</h2>
+          <!-- NEW: share the list as text -->
+          <button type="button" class="link-button" onclick="copyShoppingList()">Copy list</button>
+        </div>
+        <p id="shoppingSummary">Plan your next grocery trip.</p>
+
+        <form id="shoppingForm">
+          <input id="shoppingInput" type="text" placeholder="Add an item" required>
+          <!-- NEW: quantity, store section and who it's for -->
+          <input id="shoppingQty" type="number" min="1" value="1" aria-label="Quantity">
+          <button type="submit">Add</button>
+          <div class="shopping-options">
+            <select id="shoppingCategory" aria-label="Store section">
+              <option>Auto section</option>
+              <option>Produce</option>
+              <option>Dairy &amp; Eggs</option>
+              <option>Meat &amp; Seafood</option>
+              <option>Bakery</option>
+              <option>Pantry</option>
+              <option>Frozen</option>
+              <option>Household</option>
+              <option>Other</option>
+            </select>
+            <select id="shoppingOwner" aria-label="Who it's for">
+              <option>Shared</option>
+              <option>Mine</option>
+            </select>
+            <input id="shoppingNote" type="text" placeholder="Note (brand, size…)">
+          </div>
+        </form>
+      </div>
+
+      <!-- NEW: suggestions pulled from the kitchen inventory and recipes -->
+      <div id="shoppingSuggestions"></div>
 
       <ul id="shoppingList"></ul>
+
+      <!-- NEW: checked-off items, ready to put away into the kitchen -->
+      <div id="cartSection"></div>
     </div>
 
 
@@ -72,15 +131,25 @@
 
       <div id="recipeList">
 
-        <h2>Recipes</h2>
-        <p>Find recipes using ingredients you already have.</p>
+        <div class="sticky-top">
+          <h2>Recipes</h2>
+          <p>Find recipes using ingredients you already have.</p>
 
-        <input
-          type="text"
-          id="recipeSearch"
-          placeholder="Search recipes..."
-          onkeyup="searchRecipes()"
-        >
+          <input
+            type="text"
+            id="recipeSearch"
+            placeholder="Search recipes or ingredients..."
+            onkeyup="searchRecipes()"
+          >
+
+          <!-- NEW: recipe filters -->
+          <div class="filter-chips">
+            <button class="chip recipe-chip active" onclick="setRecipeFilter('All')">All</button>
+            <button class="chip recipe-chip" onclick="setRecipeFilter('Ready')">Ready to cook</button>
+            <button class="chip recipe-chip" onclick="setRecipeFilter('Almost')">Missing 1–2</button>
+            <button class="chip recipe-chip" onclick="setRecipeFilter('Quick')">Under 20 min</button>
+          </div>
+        </div>
 
         <h3>Recommended for You</h3>
 
@@ -101,7 +170,7 @@
           </div>
           <span class="recipe-arrow">›</span>
         </div>
-        <!-- onclick not implemented yet  -->
+
         <div class="recipe-card" onclick="showRecipe('tacos')">
           <div>
             <h4>Chicken Tacos</h4>
@@ -111,17 +180,25 @@
           <span class="recipe-arrow">›</span>
         </div>
 
+        <p id="noRecipes" style="display:none;">No recipes match your search.</p>
+
       </div>
 
       <div id="recipeDetails" style="display:none;"></div>
 
     </div>
 
+    <!-- NEW: short confirmation message with an optional Undo -->
+    <div id="toast">
+      <span id="toastText"></span>
+      <button type="button" id="toastAction"></button>
+    </div>
+
     <!-- Bottom Navigation -->
     <div class="footer">
 
-      <button class="tablink active" 
-              onclick="openCity('Kitchen')" 
+      <button class="tablink active"
+              onclick="openCity('Kitchen')"
               id="defaultOpen">
 
         <img src="icons/fridge-active.svg" class="tabicon" alt="">
@@ -134,6 +211,8 @@
 
         <img src="icons/cart-inactive.svg" class="tabicon" alt="">
         Shopping
+        <!-- NEW: number of items still to buy -->
+        <span id="shoppingBadge"></span>
       </button>
 
       <button

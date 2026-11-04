@@ -44,7 +44,7 @@ searchBar.addEventListener("input", function() {
     displayItems()
 })
 
-let inventory = [
+const defaultInventory = [
   { name: "Milk", quantity: 2, location: "Fridge", expiration: "2026-10-29", owner: "Shared" },
   { name: "Eggs", quantity: 12, location: "Fridge", expiration: "2026-11-02", owner: "Mine" },
   { name: "Cheese", quantity: 1, location: "Fridge", expiration: "2026-11-10", owner: "Shared" },
@@ -58,6 +58,33 @@ let inventory = [
   { name: "Tortillas", quantity: 1, location: "Pantry", expiration: "2026-11-15", owner: "Shared" },
   { name: "Frozen Peas", quantity: 2, location: "Freezer", expiration: "2027-01-10", owner: "Shared" }
 ];
+
+let inventory = loadSavedArray("kk_inventory", defaultInventory);
+
+function loadSavedArray(key, fallback) {
+  try {
+    const saved = localStorage.getItem(key);
+
+    if (saved !== null) {
+      const data = JSON.parse(saved);
+      if (Array.isArray(data)) return data;
+    }
+  } catch (error) {
+    console.warn("Could not load saved data:", error);
+  }
+
+  return JSON.parse(JSON.stringify(fallback));
+}
+
+function saveData() {
+  try {
+    localStorage.setItem("kk_inventory", JSON.stringify(inventory));
+    localStorage.setItem("kk_shopping", JSON.stringify(shoppingItems));
+    localStorage.setItem("kk_templates", JSON.stringify(shoppingTemplates));
+  } catch (error) {
+    console.warn("Could not save data:", error);
+  }
+}
 
 let currentLocation = "Fridge";
 
@@ -169,6 +196,7 @@ function displayItems() {
       minus.setAttribute("aria-label", "Use one " + item.name);
       minus.addEventListener("click", function() {
         if (item.quantity > 0) item.quantity--;
+        saveData();
         displayItems();
       });
 
@@ -177,6 +205,7 @@ function displayItems() {
       plus.setAttribute("aria-label", "Add one " + item.name);
       plus.addEventListener("click", function() {
         item.quantity++;
+        saveData();
         displayItems();
       });
 
@@ -249,11 +278,13 @@ addItem.addEventListener("submit", function(event) {
 
   searchBar.value = "";
   hideForm();
+  saveData();
   displayItems();
 });
 
 function deleteEditingItem() {
   inventory.splice(inventory.indexOf(editingItem), 1);
+  saveData();
   hideForm();
   displayItems();
 }
@@ -263,11 +294,14 @@ changeLocation("Fridge");
 // SHOPPING TAB 
 // -----------------------------------
 
-let shoppingItems = [
+const defaultShoppingItems = [
   { name: "Apples", quantity: 6, category: "Produce", owner: "Mine", note: "Honeycrisp", checked: false },
   { name: "Milk", quantity: 1, category: "Dairy & Eggs", owner: "Shared", note: "2%", checked: false },
   { name: "Pasta", quantity: 2, category: "Pantry", owner: "Shared", note: "", checked: false }
 ];
+
+let shoppingItems = loadSavedArray("kk_shopping", defaultShoppingItems);
+let shoppingTemplates = loadSavedArray("kk_templates", []);
 
 const categories = ["Produce", "Dairy & Eggs", "Meat", "Pantry", "Frozen", "Other"];
 
@@ -294,6 +328,7 @@ function addShoppingItem(name, quantity, category, owner, note) {
   } else {
     shoppingItems.push({ name, quantity, category, owner, note, checked: false });
   }
+  saveData();
   displayShoppingItems();
 }
 
@@ -328,6 +363,7 @@ function displayShoppingItems() {
       checkbox.checked = item.checked;
       checkbox.addEventListener("change", () => {
         item.checked = checkbox.checked;
+        saveData();
         displayShoppingItems();
       });
 
@@ -352,6 +388,7 @@ function displayShoppingItems() {
       removeButton.setAttribute("aria-label", "Remove " + item.name);
       removeButton.addEventListener("click", () => {
         shoppingItems.splice(index, 1);
+        saveData();
         displayShoppingItems();
       });
 
@@ -377,6 +414,7 @@ function putAwayItems() {
     }
   });
   shoppingItems = shoppingItems.filter(item => !item.checked);
+  saveData();
   displayShoppingItems();
   displayItems();
 }
@@ -404,18 +442,21 @@ displayShoppingItems();
 const recipes = {
   alfredo: {
     title: "Alfredo Pasta", time: 30,
+    dietary: ["Vegetarian"],
     ingredients: ["Pasta", "Butter", "Heavy Cream", "Parmesan", "Garlic", "Black Pepper"],
     steps: ["Boil pasta until al dente.", "Melt butter and cook garlic for 1 minute.",
             "Add cream and simmer 3–4 minutes.", "Stir in parmesan and toss with pasta."]
   },
   omelet: {
     title: "Cheese Omelet", time: 15,
+    dietary: ["Vegetarian", "Gluten-Free"],
     ingredients: ["Eggs", "Cheese", "Butter", "Milk", "Spinach"],
     steps: ["Whisk eggs with milk.", "Melt butter in a pan.",
             "Pour in eggs, add spinach and cheese.", "Fold and cook until set."]
   },
   tacos: {
     title: "Chicken Tacos", time: 25,
+    dietary: [],
     ingredients: ["Chicken", "Tortillas", "Onion", "Salsa", "Lime", "Cilantro", "Cheese"],
     steps: ["Cook the chicken 6–7 minutes per side.", "Slice chicken and dice onion.",
             "Warm the tortillas.", "Fill with chicken, salsa, cheese, cilantro and lime."]
@@ -448,11 +489,33 @@ function updateRecipeCards() {
 }
 
 function searchRecipes() {
-  let search = document.getElementById("recipeSearch").value.toLowerCase();
+  const search = document.getElementById("recipeSearch")
+    .value.trim().toLowerCase();
+
+  const filter = document.getElementById("dietaryFilter").value;
+
+  let visible = 0;
+
   document.querySelectorAll("#recipeList .recipe-card").forEach(card => {
-    let title = card.querySelector("h4").textContent.toLowerCase();
-    card.style.display = title.includes(search) ? "flex" : "none";
+    const title = card.querySelector("h4").textContent;
+    const recipe = Object.values(recipes).find(r => r.title === title);
+
+    const matchesSearch = title.toLowerCase().includes(search);
+
+    const matchesDiet =
+      filter === "All" ||
+      (recipe && recipe.dietary.includes(filter));
+
+    if (matchesSearch && matchesDiet) {
+      card.style.display = "flex";
+      visible++;
+    } else {
+      card.style.display = "none";
+    }
   });
+
+  document.getElementById("noRecipesMessage").style.display =
+    visible === 0 ? "block" : "none";
 }
 
 function showRecipe(key) {
@@ -504,3 +567,108 @@ function addMissingToList(key) {
 }
 
 updateRecipeCards();
+
+// SAVED SHOPPING LISTS
+
+function renderShoppingTemplates() {
+  const picker = document.getElementById("templateSelect");
+  picker.replaceChildren();
+
+  const option = document.createElement("option");
+  option.value = "";
+  option.textContent = "Choose a saved list";
+  picker.appendChild(option);
+
+  shoppingTemplates.forEach((template, index) => {
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = template.name;
+    picker.appendChild(option);
+  });
+}
+
+function saveShoppingTemplate() {
+  const name = document.getElementById("templateName").value.trim();
+
+  if (!name) {
+    alert("Enter a name for your saved list.");
+    return;
+  }
+
+  if (shoppingItems.length === 0) {
+    alert("Add some groceries before saving a list.");
+    return;
+  }
+
+  const items = shoppingItems.map(item => ({
+    ...item,
+    checked: false
+  }));
+
+  const existing = shoppingTemplates.findIndex(
+    template => template.name.toLowerCase() === name.toLowerCase()
+  );
+
+  if (existing !== -1 &&
+      !confirm("Replace the saved list named " + name + "?")) {
+    return;
+  }
+
+  if (existing === -1) {
+    shoppingTemplates.push({ name, items });
+  } else {
+    shoppingTemplates[existing] = { name, items };
+  }
+
+  saveData();
+  renderShoppingTemplates();
+
+  document.getElementById("templateName").value = "";
+  alert("Shopping list saved!");
+}
+
+function loadShoppingTemplate() {
+  const selected = document.getElementById("templateSelect").value;
+
+  if (selected === "") {
+    alert("Choose a saved list first.");
+    return;
+  }
+
+  const template = shoppingTemplates[Number(selected)];
+
+  if (!template) return;
+
+  
+  shoppingItems = template.items.map(item => ({
+    ...item,
+    checked: false
+  }));
+
+  saveData();
+  displayShoppingItems();
+}
+
+function deleteShoppingTemplate() {
+  const selected = document.getElementById("templateSelect").value;
+
+  if (selected === "") {
+    alert("Choose a saved list first.");
+    return;
+  }
+
+  const index = Number(selected);
+  const template = shoppingTemplates[index];
+
+  if (!template ||
+      !confirm("Delete saved list " + template.name + "?")) {
+    return;
+  }
+
+  shoppingTemplates.splice(index, 1);
+
+  saveData();
+  renderShoppingTemplates();
+}
+
+renderShoppingTemplates();

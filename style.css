@@ -691,3 +691,65 @@ p {
   color: #333;
   line-height: 1.6;
 }
+
+.template-panel {
+  background: #EAF0E7;
+  border: 2px solid #B9CBB3;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 14px 0;
+}
+
+.template-panel h3 {
+  margin: 0 0 8px;
+}
+
+.template-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.template-row input,
+.template-row select,
+#dietaryFilter {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px;
+  border: 2px solid #B9C4B5;
+  border-radius: 8px;
+  background: white;
+  font: inherit;
+}
+
+.template-row button {
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #4F7A55;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.template-row .delete-template {
+  background: #8E2A21;
+}
+
+
+.dietary-filter-label {
+  display: block;
+  font-weight: 700;
+  margin: 6px 0;
+  color: #355C3B;
+}
+
+#dietaryFilter {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+

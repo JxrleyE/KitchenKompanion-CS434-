@@ -14,8 +14,6 @@
     <!-- Kitchen Screen -->
     <div id="Kitchen" class="tabcontent scroll">
       <h1 id="kitchen_header">Kitchen Kompanion</h1>
-      <h2>My Kitchen</h2>
-      <p>View and manage your food inventory.</p>
       
   <div class="storage-buttons">
     <button onclick="changeLocation('Fridge')">Fridge</button>
@@ -23,10 +21,34 @@
     <button onclick="changeLocation('Freezer')">Freezer</button>
   </div>
 
+  <input type="text" id="search_bar" placeholder="Search items">
+
+  <form id ="add_item">
+    <h3 id="add_title"> Add Item</h3>
+        <label for="new_name">Item name</label>
+    <input type="text" id="new_name" required>
+    <label for="new_quantity">Quantity</label>
+    <input type="number" id="new_quantity" min="1" value="1" required>
+    <label for="new_expiration">Expiration date</label>
+    <input type="date" id="new_expiration">
+    <label for="new_owner">Tag</label>
+    <select id="new_owner">
+      <option>Mine</option>
+      <option>Shared</option>
+    </select>
+    </select>
+    <button type="submit">Add</button>
+    <button type="button" onclick="hideForm()">Cancel</button>
+  </form>
+
+  
+
   
   <h3 id="locationTitle">Fridge Items</h3>
 
   <div id="inventoryList"></div>
+
+  <button id="add_item_button" onclick="showForm()">+ Add Item </button>
 
 </div>
    

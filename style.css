@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   background-color: #e8ede6;
@@ -584,6 +585,7 @@ p {
   display: flex;
   gap: 8px;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .shopping-options select,
@@ -597,8 +599,12 @@ p {
   min-width: 0;
 }
 
+.shopping-options select {
+  flex: 1 1 140px;
+}
+
 .shopping-options input {
-  flex: 1;
+  flex: 1 1 100%;
 }
 
 #shoppingList {
@@ -815,7 +821,6 @@ p {
   color: white;
 }
 
-/* Custom inventory tags */
 .tag:not(.mine):not(.shared) {
   background-color: #E3EDDF;
   color: #355C3B;

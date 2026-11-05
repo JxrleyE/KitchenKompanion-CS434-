@@ -410,12 +410,17 @@ const shoppingForm = document.getElementById("shoppingForm");
 const shoppingInput = document.getElementById("shoppingInput");
 const shoppingList = document.getElementById("shoppingList");
 
-function addShoppingItem(name, quantity, category, owner, note) {
-  let existing = shoppingItems.find(item => item.name.toLowerCase() === name.toLowerCase() && !item.checked);
+function addShoppingItem(name, quantity, category, owner, note, location = categoryToLocation[category] || "Pantry") {
+  let existing = shoppingItems.find(item =>
+    item.name.toLowerCase() === name.toLowerCase() &&
+    !item.checked &&
+    (item.location || categoryToLocation[item.category] || "Pantry") === location
+  );
   if (existing) {
     existing.quantity += quantity;
+    existing.location = location;
   } else {
-    shoppingItems.push({ name, quantity, category, owner, note, checked: false });
+    shoppingItems.push({ name, quantity, category, owner, note, location, checked: false });
   }
   saveData();
   displayShoppingItems();
@@ -465,6 +470,7 @@ function displayShoppingItems() {
       details.className = "item-details";
       details.innerHTML = "<span class='tag " + item.owner.toLowerCase() + "'>" + item.owner + "</span>";
       if (item.note) details.append(item.note);
+      details.append(" · " + (item.location || categoryToLocation[item.category] || "Pantry"));
       text.append(label, details);
 
       const qty = document.createElement("span");
@@ -492,15 +498,17 @@ function displayShoppingItems() {
 
   document.getElementById("putAwayButton").style.display = checked ? "block" : "none";
 }
+
 function putAwayItems() {
   shoppingItems.filter(item => item.checked).forEach(item => {
-    let location = categoryToLocation[item.category];
-    let match = inventory.find(i => i.name.toLowerCase() === item.name.toLowerCase());
+    let location = item.location || categoryToLocation[item.category] || "Pantry";
+    let match = inventory.find(i =>
+      i.name.toLowerCase() === item.name.toLowerCase() && i.location === location
+    );
     if (match) {
       match.quantity += item.quantity;
     } else {
-      inventory.push({ name: item.name, quantity: item.quantity, location: location, expiration: "", owner: item.owner });
-      category: item.category
+      inventory.push({ name: item.name, quantity: item.quantity, location: location, expiration: "", owner: item.owner, category: item.category });
     }
   });
   shoppingItems = shoppingItems.filter(item => !item.checked);
@@ -519,12 +527,14 @@ shoppingForm.addEventListener("submit", event => {
     Math.max(1, Number(document.getElementById("shoppingQty").value) || 1),
     document.getElementById("shoppingCategory").value,
     document.getElementById("shoppingOwner").value,
-    document.getElementById("shoppingNote").value.trim()
+    document.getElementById("shoppingNote").value.trim(),
+    document.getElementById("shoppingLocation").value
   );
 
   shoppingInput.value = "";
   document.getElementById("shoppingQty").value = 1;
   document.getElementById("shoppingNote").value = "";
+  document.getElementById("shoppingLocation").value = "";
 });
 
 displayShoppingItems();
